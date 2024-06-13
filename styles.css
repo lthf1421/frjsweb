@@ -1,0 +1,104 @@
+body {
+    font-family: "Kanit", sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    /* Set background image */
+    background-color: #39385c;
+}
+
+.header {
+    margin-bottom: 50px;
+}
+
+.bold-text {
+    /* Adjust as needed */
+    font-weight: 700;
+    font-style: italic;
+    /* Ensure the text is bold */
+    /* Adjust the value as needed */
+}
+
+h1 {
+    font-weight: 300;
+    font-style: normal;
+    color: #ffffff;
+}
+
+p {
+    color: #ffffff;
+}
+
+.card {
+    overflow: hidden;
+    border: none;
+    box-shadow: none;
+    text-decoration: none;
+    height: 150px;
+    /* Adjust the height to make the card thinner */
+    transition: transform 0.3s, box-shadow 0.3s;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.card-body {
+    margin-top: auto;
+    background: rgba(0, 0, 0, 0.226);
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.card:hover {
+    transform: scale(1.05);
+    /* Scale the card slightly on hover */
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.185);
+    /* Add shadow on hover */
+}
+
+.card-img {
+    height: 100%;
+    /* Ensure the image covers the entire card */
+    object-fit: cover;
+    /* Cover the entire card while maintaining aspect ratio */
+}
+
+.card-title {
+    font-size: 1.5rem;
+}
+
+.card-img-overlay {
+    background: rgba(0, 0, 0, 0.356);
+    /* Optional: Add a dark overlay */
+}
+
+.btn {
+    font-size: 1rem;
+    padding: 10px 20px;
+}
+
+.btn-primary {
+    color: white;
+    /* Keep font color white */
+    background-color: transparent;
+    /* Remove background color */
+    border: none;
+    /* Remove border */
+    font-weight: 200;
+    /* Reset font weight */
+    text-align: left;
+}
+
+.btn-primary:hover {
+    color: rgb(226, 250, 15);
+    /* Keep font color white on hover */
+    background-color: transparent;
+    /* Remove background color on hover */
+    text-decoration: underline;
+    /* Add underline on hover */
+}
