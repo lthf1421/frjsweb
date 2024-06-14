@@ -57,6 +57,11 @@ if (isset($_GET['kategori'])) {
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@100..900&family=Kanit:wght@100..900&display=swap" rel="stylesheet">
+    <style>
+        .product-card {
+            height: 100%; /* Ensures each card is the same height */
+        }
+    </style>
 </head>
 <body>
     <!-- Navbar -->
@@ -100,35 +105,30 @@ if (isset($_GET['kategori'])) {
                 $sortAscUrl = isset($_GET['kategori']) ? "?kategori=$_GET[kategori]&sort=asc" : "?sort=asc";
                 $sortDescUrl = isset($_GET['kategori']) ? "?kategori=$_GET[kategori]&sort=desc" : "?sort=desc";
                 ?>
-                <a class="dropdown-item" href="<?php echo $sortAscUrl; ?>" onclick="sortProducts('asc')">Kecil - Besar</a>
-                <a class="dropdown-item" href="<?php echo $sortDescUrl; ?>" onclick="sortProducts('desc')">Besar - Kecil</a>
+                <a class="dropdown-item" href="<?php echo $sortAscUrl; ?>" onclick="sortProducts('asc')">Besar - Kecil</a>
+                <a class="dropdown-item" href="<?php echo $sortDescUrl; ?>" onclick="sortProducts('desc')">Kecil - Besar</a>
             </div>
         </div>
     </div>
 
     <!-- Main Content -->
     <div class="container mt-5">
-        <div class="row">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-4">
             <!-- Product Cards Section -->
-            <div class="col-lg-12">
-                <div class="row">
-                    <!-- Product Card  -->
-                    <?php while ($produk = mysqli_fetch_array($queryProdukCards)) { ?>
-                        <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
-                            <div class="card h-100 product-card bg-dark text-white">
-                                <div class="card-img-container">
-                                    <img src="../img/edgar-chaparro--axLDDU97I0-unsplash.jpg" class="card-img-top" alt="Product 1">
-                                </div>
-                                <div class="card-body">
-                                    <h5 class="card-title"><?php echo $produk['id']; ?> <span class="text-muted"><?php echo $produk['panjang'] . 'cm x ' . $produk['lebar'] . 'cm'; ?></span></h5>
-                                    <p class="card-text">Rp. <?php echo $produk['harga']; ?></p>
-                                    <a href="product-detail.php?id=<?php echo $produk['id']; ?>" class="product-link">View Details</a>
-                                </div>
-                            </div>
+            <?php while ($produk = mysqli_fetch_array($queryProdukCards)) { ?>
+                <div class="col mb-4">
+                    <div class="card h-100 product-card bg-dark text-white">
+                        <div class="card-img-container">
+                            <img src="../img/edgar-chaparro--axLDDU97I0-unsplash.jpg" class="card-img-top" alt="Product 1">
                         </div>
-                    <?php } ?>
+                        <div class="card-body">
+                            <h5 class="card-title"><?php echo $produk['id']; ?> <span class="text-muted"><?php echo $produk['panjang'] . 'cm x ' . $produk['lebar'] . 'cm'; ?></span></h5>
+                            <p class="card-text">Rp. <?php echo $produk['harga']; ?></p>
+                            <a href="product-detail.php?id=<?php echo $produk['id']; ?>" class="product-link">View Details</a>
+                        </div>
+                    </div>
                 </div>
-            </div>
+            <?php } ?>
             <!-- End of Product Card loop -->
         </div>
     </div>
