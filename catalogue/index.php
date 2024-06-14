@@ -153,7 +153,7 @@ if (isset($_GET['kategori'])) {
                         <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
                             <div class="card h-100 product-card bg-dark text-white">
                                 <div class="card-img-container">
-                                    <img src="img/product1.jpg" class="card-img-top" alt="Product 1">
+                                    <img src="../img/edgar-chaparro--axLDDU97I0-unsplash.jpg" class="card-img-top" alt="Product 1">
                                 </div>
                                 <div class="card-body">
                                     <h5 class="card-title"><?php echo $produk['id']; ?> <span class="text-muted"><?php echo $produk['panjang'] . 'cm x ' . $produk['lebar'] . 'cm'; ?></span></h5>
