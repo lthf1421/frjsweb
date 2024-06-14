@@ -16,35 +16,25 @@ if (isset($_GET['kategori'])) {
     if ($queryGetKategoriId && mysqli_num_rows($queryGetKategoriId) > 0) {
         $kategoriId = mysqli_fetch_array($queryGetKategoriId)['id'];
 
-        $queryProdukMenu = mysqli_query($con, "SELECT DISTINCT produk.kategori_id, produk.ukuran_id, ukuran.panjang, ukuran.lebar FROM produk 
-                                               JOIN ukuran ON produk.ukuran_id = ukuran.id 
-                                               WHERE kategori_id='$kategoriId'");
+        // Determine the sorting order
+        $sort = isset($_GET['sort']) ? $_GET['sort'] : 'asc'; // Default to ascending order if sort parameter is not set
+        $sortQuery = ($sort == 'asc') ? 'ORDER BY ukuran.panjang ASC' : 'ORDER BY ukuran.panjang DESC';
 
-        // Handle size filter within the selected category
-        if (isset($_GET['ukuran'])) {
-            $ukuran = mysqli_real_escape_string($con, $_GET['ukuran']); // Sanitize input
-            $queryProdukCards = mysqli_query($con, "SELECT produk.*, ukuran.panjang, ukuran.lebar FROM produk 
-                                                    JOIN ukuran ON produk.ukuran_id = ukuran.id 
-                                                    WHERE produk.kategori_id='$kategoriId' AND produk.ukuran_id='$ukuran'");
-        } else {
-            $queryProdukCards = mysqli_query($con, "SELECT produk.*, ukuran.panjang, ukuran.lebar FROM produk 
-                                                    JOIN ukuran ON produk.ukuran_id = ukuran.id 
-                                                    WHERE produk.kategori_id='$kategoriId'");
-        }
+        // Query products within the selected category and sorted by 'panjang'
+        $queryProdukCards = mysqli_query($con, "SELECT produk.*, ukuran.panjang, ukuran.lebar FROM produk 
+                                                JOIN ukuran ON produk.ukuran_id = ukuran.id 
+                                                WHERE produk.kategori_id='$kategoriId' 
+                                                $sortQuery");
     }
 } else {
     // Fetch all products for the initial load
     $sort = isset($_GET['sort']) ? $_GET['sort'] : 'asc'; // Default to ascending order if sort parameter is not set
 
-    if ($sort == 'asc') {
-        $queryProdukCards = mysqli_query($con, "SELECT produk.*, ukuran.panjang, ukuran.lebar FROM produk 
-                                                JOIN ukuran ON produk.ukuran_id = ukuran.id 
-                                                ORDER BY ukuran.lebar DESC");
-    } else {
-        $queryProdukCards = mysqli_query($con, "SELECT produk.*, ukuran.panjang, ukuran.lebar FROM produk 
-                                                JOIN ukuran ON produk.ukuran_id = ukuran.id 
-                                                ORDER BY ukuran.lebar ASC");
-    }
+    $sortQuery = ($sort == 'asc') ? 'ORDER BY ukuran.panjang ASC' : 'ORDER BY ukuran.panjang DESC';
+
+    $queryProdukCards = mysqli_query($con, "SELECT produk.*, ukuran.panjang, ukuran.lebar FROM produk 
+                                            JOIN ukuran ON produk.ukuran_id = ukuran.id 
+                                            $sortQuery");
 
     $queryProdukMenu = mysqli_query($con, "SELECT DISTINCT produk.kategori_id, produk.ukuran_id, ukuran.panjang, ukuran.lebar FROM produk 
                                            JOIN ukuran ON produk.ukuran_id = ukuran.id");
@@ -99,52 +89,22 @@ if (isset($_GET['kategori'])) {
         </div>
     </div>
 
-     <!-- Sort Links -->
-
-    <style>
-                        .custom-dropdown .btn-primary {
-            margin-top: 20px;
-            width: 200px; /* Adjust width as needed */
-            min-width: 10px; /* Set a minimum width for consistency */
-            background-color: transparent !important; /* Set button background to transparent */
-            border: 1px solid white; /* Set white border */
-            color: white; /* Text color */
-            }
-
-            .custom-dropdown .btn-primary:hover {
-            background-color: rgba(255, 255, 255, 0.1); /* Light transparent background on hover */
-            }
-
-            .custom-dropdown .dropdown-menu {
-            min-width: 200px; /* Adjust width of the dropdown menu */
-            background-color: white !important; /* Set menu background to transparent */
-            border: 1px solid white; /* Set white border */
-            }
-
-            .custom-dropdown .dropdown-item {
-            color: black; /* Text color for dropdown items */
-            }
-
-            .custom-dropdown .dropdown-item:hover {
-            background-color: yellowgreen; /* Light transparent background on hover */
-            }
-        </style>
-
-<div class="container mt-3 d-inline-block">
-    <div class="btn-group custom-dropdown">
-        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Sort by
-        </button>
-        <div class="dropdown-menu w-100">
-            <?php
-            $sortAscUrl = isset($_GET['kategori']) ? "?kategori=$_GET[kategori]&sort=asc" : "?sort=asc";
-            $sortDescUrl = isset($_GET['kategori']) ? "?kategori=$_GET[kategori]&sort=desc" : "?sort=desc";
-            ?>
-            <a class="dropdown-item" href="<?php echo $sortAscUrl; ?>" onclick="sortProducts('asc')">Besar - Kecil</a>
-            <a class="dropdown-item" href="<?php echo $sortDescUrl; ?>" onclick="sortProducts('desc')">Kecil - Besar</a>
+    <!-- Sort Links -->
+    <div class="container mt-3 d-inline-block">
+        <div class="btn-group custom-dropdown">
+            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Sort by
+            </button>
+            <div class="dropdown-menu w-100">
+                <?php
+                $sortAscUrl = isset($_GET['kategori']) ? "?kategori=$_GET[kategori]&sort=asc" : "?sort=asc";
+                $sortDescUrl = isset($_GET['kategori']) ? "?kategori=$_GET[kategori]&sort=desc" : "?sort=desc";
+                ?>
+                <a class="dropdown-item" href="<?php echo $sortAscUrl; ?>" onclick="sortProducts('asc')">Kecil - Besar</a>
+                <a class="dropdown-item" href="<?php echo $sortDescUrl; ?>" onclick="sortProducts('desc')">Besar - Kecil</a>
+            </div>
         </div>
     </div>
-</div>
 
     <!-- Main Content -->
     <div class="container mt-5">
@@ -193,6 +153,3 @@ if (isset($_GET['kategori'])) {
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-
-</body>
-</html>
