@@ -34,17 +34,25 @@ if (isset($_GET['kategori'])) {
     }
 } else {
     // Fetch all products for the initial load
+    $sort = isset($_GET['sort']) ? $_GET['sort'] : 'asc'; // Default to ascending order if sort parameter is not set
+
+    if ($sort == 'asc') {
+        $queryProdukCards = mysqli_query($con, "SELECT produk.*, ukuran.panjang, ukuran.lebar FROM produk 
+                                                JOIN ukuran ON produk.ukuran_id = ukuran.id 
+                                                ORDER BY ukuran.lebar DESC");
+    } else {
+        $queryProdukCards = mysqli_query($con, "SELECT produk.*, ukuran.panjang, ukuran.lebar FROM produk 
+                                                JOIN ukuran ON produk.ukuran_id = ukuran.id 
+                                                ORDER BY ukuran.lebar ASC");
+    }
+
     $queryProdukMenu = mysqli_query($con, "SELECT DISTINCT produk.kategori_id, produk.ukuran_id, ukuran.panjang, ukuran.lebar FROM produk 
                                            JOIN ukuran ON produk.ukuran_id = ukuran.id");
-
-    $queryProdukCards = mysqli_query($con, "SELECT produk.*, ukuran.panjang, ukuran.lebar FROM produk 
-                                            JOIN ukuran ON produk.ukuran_id = ukuran.id");
 }
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -52,16 +60,13 @@ if (isset($_GET['kategori'])) {
     <!-- Bootstrap CSS -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.0/font/bootstrap-icons.css" rel="stylesheet">
-    <!-- My custom CSS -->
+    <!-- Custom CSS -->
     <link rel="stylesheet" href="styles.css">
-
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100..900;1,100..900&family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@100..900&family=Kanit:wght@100..900&display=swap" rel="stylesheet">
 </head>
-
 <body>
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark transparent-navbar custom-navbar">
@@ -86,8 +91,6 @@ if (isset($_GET['kategori'])) {
         </div>
     </nav>
 
-
-
     <!-- Header Image -->
     <div class="container mt-3">
         <div class="header-image">
@@ -95,46 +98,47 @@ if (isset($_GET['kategori'])) {
         </div>
     </div>
 
+    <!-- Sort Links Style -->
+    <style>
+    .sorting-heading {
+    font-size: 1.2em; /* Adjust font size as needed */
+    color: #d6d6d6; /* Default text color */
+    text-align: center; /* Center align the text */
+    margin-top: 7px; /* Bottom margin for spacing */
+    }
+
+    .sort-link {
+        color: #d6d6d6;
+        text-decoration: underline; /* Underline link */
+        cursor: pointer; /* Pointer cursor on hover */
+    }
+
+    .sort-link:hover {
+        color: rgb(238, 255, 7); /* Hover color */
+        text-decoration: underline; /* Maintain underline on hover */
+    }
+    </style>
+
+     <!-- Sort Links -->
+     <div class="container mt-3">
+    <div class="d-flex justify-content-center align-items-center">
+        <h3 class="sorting-heading">
+            <i class="bi bi-sort-numeric-up"></i>
+            <a href="?sort=asc" class="sort-link mx-2" onclick="sortProducts('asc')">Besar - Kecil</a>
+            <i class="bi bi-sort-numeric-down"></i>
+            <a href="?sort=desc" class="sort-link mx-2" onclick="sortProducts('desc')">Kecil - Besar</a>
+        </h3>
+    </div>
+</div>
     <!-- Main Content -->
     <div class="container mt-5">
         <div class="row">
-            <!-- Category Button -->
-            <div class="col-lg-3 col-md-12 mb-4">
-                <button class="btn btn-primary mb-2 d-lg-none" type="button" data-toggle="collapse" data-target="#categoryMenu" aria-expanded="false" aria-controls="categoryMenu">
-                    Pilih Dimensi
-                </button>
-                <div class="collapse d-lg-block" id="categoryMenu">
-                    <ul class="category-list">
-                        <li class="text-muted specific-text">
-                            <?php
-                            // Display appropriate message if there are no products
-                            if ($queryProdukMenu && mysqli_num_rows($queryProdukMenu) > 0) {
-                                echo "Panjang x Lebar";
-                            } else {
-                                echo "Belum ada data yang dientry.";
-                            }
-                            ?>
-                        </li>
-                        <?php
-                        if ($queryProdukMenu && mysqli_num_rows($queryProdukMenu) > 0) {
-                            while ($produk = mysqli_fetch_array($queryProdukMenu)) { ?>
-                                <li><a href="index.php?kategori=<?php echo $produk['kategori_id'] . '&ukuran=' . $produk['ukuran_id']; ?>#" class="category-link"><?php echo $produk['panjang'] . 'cm x ' . $produk['lebar'] . 'cm'; ?></a></li>
-                        <?php }
-                        }
-                        ?>
-                        <!-- Add a button to reset the category selection -->
-                        <?php if (isset($_GET['kategori']) && isset($_GET['ukuran'])) { ?>
-                            <li><a href="index.php?kategori=<?php echo $_GET['kategori']; ?>" class="category-link">Tampilkan semua</a></li>
-                        <?php } ?>
-                    </ul>
-                </div>
-            </div>
             <!-- Product Cards Section -->
-            <div class="col-lg-9 col-md-12">
+            <div class="col-lg-12">
                 <div class="row">
                     <!-- Product Card  -->
                     <?php while ($produk = mysqli_fetch_array($queryProdukCards)) { ?>
-                        <div class="col-lg-4 col-md-6 col-6 mb-4">
+                        <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
                             <div class="card h-100 product-card bg-dark text-white">
                                 <div class="card-img-container">
                                     <img src="img/product1.jpg" class="card-img-top" alt="Product 1">
@@ -149,11 +153,8 @@ if (isset($_GET['kategori'])) {
                     <?php } ?>
                 </div>
             </div>
-
             <!-- End of Product Card loop -->
         </div>
-    </div>
-    </div>
     </div>
 
     <!-- Footer -->
@@ -176,6 +177,6 @@ if (isset($_GET['kategori'])) {
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-</body>
 
+</body>
 </html>
