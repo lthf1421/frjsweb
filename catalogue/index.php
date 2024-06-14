@@ -130,17 +130,21 @@ if (isset($_GET['kategori'])) {
             }
         </style>
 
-        <div class="container mt-3 d-inline-block">
-        <div class="btn-group custom-dropdown">
-            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+<div class="container mt-3 d-inline-block">
+    <div class="btn-group custom-dropdown">
+        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Sort by
-            </button>
-            <div class="dropdown-menu w-100">
-            <a class="dropdown-item" href="?sort=asc" onclick="sortProducts('asc')">Besar - Kecil</a>
-            <a class="dropdown-item" href="?sort=desc" onclick="sortProducts('desc')">Kecil - Besar</a>
-            </div>
+        </button>
+        <div class="dropdown-menu w-100">
+            <?php
+            $sortAscUrl = isset($_GET['kategori']) ? "?kategori=$_GET[kategori]&sort=asc" : "?sort=asc";
+            $sortDescUrl = isset($_GET['kategori']) ? "?kategori=$_GET[kategori]&sort=desc" : "?sort=desc";
+            ?>
+            <a class="dropdown-item" href="<?php echo $sortAscUrl; ?>" onclick="sortProducts('asc')">Besar - Kecil</a>
+            <a class="dropdown-item" href="<?php echo $sortDescUrl; ?>" onclick="sortProducts('desc')">Kecil - Besar</a>
         </div>
-        </div>
+    </div>
+</div>
 
     <!-- Main Content -->
     <div class="container mt-5">
