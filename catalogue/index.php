@@ -58,6 +58,7 @@ if (isset($_GET['kategori'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Product Catalogue</title>
     <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.0/font/bootstrap-icons.css" rel="stylesheet">
     <!-- Custom CSS -->
@@ -98,38 +99,49 @@ if (isset($_GET['kategori'])) {
         </div>
     </div>
 
-    <!-- Sort Links Style -->
-    <style>
-    .sorting-heading {
-    font-size: 1.2em; /* Adjust font size as needed */
-    color: #d6d6d6; /* Default text color */
-    text-align: center; /* Center align the text */
-    margin-top: 7px; /* Bottom margin for spacing */
-    }
-
-    .sort-link {
-        color: #d6d6d6;
-        text-decoration: underline; /* Underline link */
-        cursor: pointer; /* Pointer cursor on hover */
-    }
-
-    .sort-link:hover {
-        color: rgb(238, 255, 7); /* Hover color */
-        text-decoration: underline; /* Maintain underline on hover */
-    }
-    </style>
-
      <!-- Sort Links -->
-     <div class="container mt-3">
-    <div class="d-flex justify-content-center align-items-center">
-        <h3 class="sorting-heading">
-            <i class="bi bi-sort-numeric-up"></i>
-            <a href="?sort=asc" class="sort-link mx-2" onclick="sortProducts('asc')">Besar - Kecil</a>
-            <i class="bi bi-sort-numeric-down"></i>
-            <a href="?sort=desc" class="sort-link mx-2" onclick="sortProducts('desc')">Kecil - Besar</a>
-        </h3>
-    </div>
-</div>
+
+    <style>
+                        .custom-dropdown .btn-primary {
+            margin-top: 20px;
+            width: 200px; /* Adjust width as needed */
+            min-width: 10px; /* Set a minimum width for consistency */
+            background-color: transparent !important; /* Set button background to transparent */
+            border: 1px solid white; /* Set white border */
+            color: white; /* Text color */
+            }
+
+            .custom-dropdown .btn-primary:hover {
+            background-color: rgba(255, 255, 255, 0.1); /* Light transparent background on hover */
+            }
+
+            .custom-dropdown .dropdown-menu {
+            min-width: 200px; /* Adjust width of the dropdown menu */
+            background-color: white !important; /* Set menu background to transparent */
+            border: 1px solid white; /* Set white border */
+            }
+
+            .custom-dropdown .dropdown-item {
+            color: black; /* Text color for dropdown items */
+            }
+
+            .custom-dropdown .dropdown-item:hover {
+            background-color: yellowgreen; /* Light transparent background on hover */
+            }
+        </style>
+
+        <div class="container mt-3 d-inline-block">
+        <div class="btn-group custom-dropdown">
+            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Sort by
+            </button>
+            <div class="dropdown-menu w-100">
+            <a class="dropdown-item" href="?sort=asc" onclick="sortProducts('asc')">Besar - Kecil</a>
+            <a class="dropdown-item" href="?sort=desc" onclick="sortProducts('desc')">Kecil - Besar</a>
+            </div>
+        </div>
+        </div>
+
     <!-- Main Content -->
     <div class="container mt-5">
         <div class="row">
@@ -174,9 +186,9 @@ if (isset($_GET['kategori'])) {
     </footer>
 
     <!-- Bootstrap JS and dependencies -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
 </body>
 </html>
