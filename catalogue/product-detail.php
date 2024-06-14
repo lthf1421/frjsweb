@@ -30,17 +30,25 @@ if (isset($_GET['id'])) {
     <!-- Bootstrap CSS -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.0/font/bootstrap-icons.css" rel="stylesheet">
+    
+    <!-- FontAwesome -->
+    <script src="https://kit.fontawesome.com/296a2adfbf.js" crossorigin="anonymous"></script>
+
     <!-- My custom CSS -->
     <link rel="stylesheet" href="styles.css">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100..900;1,100..900&family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap" rel="stylesheet">
-</head>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100..900;1,100..900&family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet"></head>
 
 <body>
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark transparent-navbar"> <!-- Added 'transparent-navbar' class -->
+    <nav class="navbar navbar-expand-lg navbar-dark transparent-navbar custom-navbar">
         <div class="container">
             <a class="navbar-brand" href="#"><span class="bold-text">FRJS</span> Scoreboard & LED</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -63,37 +71,143 @@ if (isset($_GET['id'])) {
     </nav>
 
     <!-- Main Content -->
+     <style>
+     .main-product-image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.main-product-image img {
+    max-width: 100%;
+    height: auto;
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    width: 100%; /* Ensure image takes full width of its container */
+    min-height: 450px;
+    max-height: 450px; /* Adjust maximum height to control size */
+}
+
+.main-product-image img:hover {
+    transform: scale(1.05);
+}
+     </style>
+
     <div class="container mt-5">
-        <div class="row">
-            <div class="col-lg-6">
-                <!-- Carousel for product images -->
-                <div id="productCarousel" class="carousel slide" data-ride="carousel">
-                    <div class="carousel-inner">
-                        <?php foreach ($productImages as $index => $image) : ?>
-                            <div class="carousel-item <?php echo $index === 0 ? 'active' : ''; ?>">
-                                <img src="<?php echo $image; ?>" class="d-block w-100" alt="Product Image">
-                            </div>
-                        <?php endforeach; ?>
+    <div class="row">
+        <div class="col-lg-6">
+            <!-- Main product image -->
+            <div class="main-product-image">
+                <img src="../img/night court.jpg" class="img-fluid rounded" alt="Product Image">
+            </div> 
+             <!-- Small box containers for pictures -->
+             <div class="row mt-3">
+                    <div class="col-2">
+                        <div class="small-box-container">
+                            <a href="path/to/image1.jpg">
+                                <img src="../img/IMG-20190906-WA0009.jpg" alt="Image 1">
+                            </a>
+                        </div>
                     </div>
-                    <a class="carousel-control-prev" href="#productCarousel" role="button" data-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Previous</span>
-                    </a>
-                    <a class="carousel-control-next" href="#productCarousel" role="button" data-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Next</span>
-                    </a>
+                    <div class="col-2">
+                        <div class="small-box-container">
+                            <a href="path/to/image1.jpg">
+                                <img src="../img/IMG-20190906-WA0009.jpg" alt="Image 1">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="small-box-container">
+                            <a href="path/to/image1.jpg">
+                                <img src="../img/IMG-20190906-WA0009.jpg" alt="Image 1">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="small-box-container">
+                            <a href="path/to/image1.jpg">
+                                <img src="../img/IMG-20190906-WA0009.jpg" alt="Image 1">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="small-box-container">
+                            <a href="path/to/image2.jpg">
+                                <img src="../img/night court.jpg" alt="Image 2">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="small-box-container">
+                            <a href="path/to/image3.jpg">
+                                <img src="../img/IMG-20190906-WA0009.jpg" alt="Image 3">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="small-box-container">
+                            <a href="path/to/image4.jpg">
+                                <img src="../img/edgar-chaparro--axLDDU97I0-unsplash.jpg" alt="Image 4">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="small-box-container">
+                            <a href="path/to/image5.jpg">
+                                <img src="../img/night court.jpg" alt="Image 5">
+                            </a>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="col-lg-6">
+  
+        </div>
+        <div class="col-lg-6">
+            <!-- Product details -->
+            <div class="product-details">
                 <h1 class="display-4"><?php echo $produk['nama']; ?></h1>
                 <p class="lead">Rp. <?php echo $produk['harga']; ?></p>
                 <p class="text-muted"><?php echo $produk['panjang'] . ' cm x ' . $produk['lebar'] . ' cm'; ?></p>
-                <p><?php echo $produk['detail']; ?></p>
-                <a href="#" class="btn btn-primary">Order via Whatsapp</a>
+                <a href="#" class="btn btn-primary">Order Now</a>
+                <!-- WhatsApp share icon -->
+
+                <style>
+                    .whatsapp-share-button {
+                        display: inline-flex;
+                        align-items: center;
+                        background-color: transparent;
+                        color: white;
+                        padding: 5px 10px; /* Padding inside the button */
+                        border-radius: 5px; /* Rounded corners */
+                        text-decoration: none; /* Remove underline */
+                        margin-left: 5px; /* Margin to the left */
+                        font-size: 1rem; /* Larger icon size */
+                    }
+
+                    .whatsapp-share-button i {
+                        font-size: 1.4rem; /* Larger icon size */
+                        margin-left: 6px; /* Space between text and icon */
+                    }
+
+                    .whatsapp-share-button:hover {
+                        color: white;
+                        text-decoration: none;
+                    }
+                </style>
+                <a href="whatsapp://send?text=<?php echo urlencode('Check out this product: ' . $produk['nama'] . ' - Rp. ' . $produk['harga']); ?>" class="whatsapp-share-button">
+                <i class="fa-solid fa-share"></i>
+                    <i class="bi bi-whatsapp"></i>
+                </a>
             </div>
-        </div>
-    </div>
+
+            
+
+                   
+
+                    <p><?php echo $produk['detail']; ?></p>
+                </div>
+
 
     <!-- Footer -->
     <footer class="text-white text-center text-lg-start mt-5">
