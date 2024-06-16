@@ -1,6 +1,6 @@
 <?php
 // Create connection
-$con = mysqli_connect("localhost", "root", "", "katalogfrjs");
+$con = mysqli_connect("localhost", "root", "", "frjsweb");
 
 // Check connection
 if (mysqli_connect_error()) {
