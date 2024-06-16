@@ -17,10 +17,29 @@ if (isset($_GET['kategori'])) {
         $kategoriId = mysqli_fetch_array($queryGetKategoriId)['id'];
 
         // Determine the sorting order
-        $sort = isset($_GET['sort']) ? $_GET['sort'] : 'asc'; // Default to ascending order if sort parameter is not set
-        $sortQuery = ($sort == 'asc') ? 'ORDER BY ukuran.panjang ASC' : 'ORDER BY ukuran.panjang DESC';
+        if (isset($_GET['sort'])) {
+            switch ($_GET['sort']) {
+                case 'asc':
+                    $sortQuery = 'ORDER BY ukuran.panjang ASC';
+                    break;
+                case 'desc':
+                    $sortQuery = 'ORDER BY ukuran.panjang DESC';
+                    break;
+                case 'harga_asc':
+                    $sortQuery = 'ORDER BY produk.harga ASC';
+                    break;
+                case 'harga_desc':
+                    $sortQuery = 'ORDER BY produk.harga DESC';
+                    break;
+                default:
+                    $sortQuery = 'ORDER BY ukuran.panjang ASC';
+                    break;
+            }
+        } else {
+            $sortQuery = 'ORDER BY ukuran.panjang ASC'; // Default sorting
+        }
 
-        // Query products within the selected category and sorted by 'panjang'
+        // Query products within the selected category and sorted criteria
         $queryProdukCards = mysqli_query($con, "SELECT produk.*, ukuran.panjang, ukuran.lebar FROM produk 
                                                 JOIN ukuran ON produk.ukuran_id = ukuran.id 
                                                 WHERE produk.kategori_id='$kategoriId' 
@@ -28,9 +47,27 @@ if (isset($_GET['kategori'])) {
     }
 } else {
     // Fetch all products for the initial load
-    $sort = isset($_GET['sort']) ? $_GET['sort'] : 'asc'; // Default to ascending order if sort parameter is not set
-
-    $sortQuery = ($sort == 'asc') ? 'ORDER BY ukuran.panjang ASC' : 'ORDER BY ukuran.panjang DESC';
+    if (isset($_GET['sort'])) {
+        switch ($_GET['sort']) {
+            case 'asc':
+                $sortQuery = 'ORDER BY ukuran.panjang ASC';
+                break;
+            case 'desc':
+                $sortQuery = 'ORDER BY ukuran.panjang DESC';
+                break;
+            case 'harga_asc':
+                $sortQuery = 'ORDER BY produk.harga ASC';
+                break;
+            case 'harga_desc':
+                $sortQuery = 'ORDER BY produk.harga DESC';
+                break;
+            default:
+                $sortQuery = 'ORDER BY ukuran.panjang ASC';
+                break;
+        }
+    } else {
+        $sortQuery = 'ORDER BY ukuran.panjang ASC'; // Default sorting
+    }
 
     $queryProdukCards = mysqli_query($con, "SELECT produk.*, ukuran.panjang, ukuran.lebar FROM produk 
                                             JOIN ukuran ON produk.ukuran_id = ukuran.id 
@@ -41,8 +78,11 @@ if (isset($_GET['kategori'])) {
 }
 ?>
 
+
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -59,10 +99,12 @@ if (isset($_GET['kategori'])) {
     <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@100..900&family=Kanit:wght@100..900&display=swap" rel="stylesheet">
     <style>
         .product-card {
-            height: 100%; /* Ensures each card is the same height */
+            height: 100%;
+            /* Ensures each card is the same height */
         }
     </style>
 </head>
+
 <body>
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark transparent-navbar custom-navbar">
@@ -98,18 +140,30 @@ if (isset($_GET['kategori'])) {
     <div class="container mt-3 d-inline-block">
         <div class="btn-group custom-dropdown">
             <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Sort by
+                Urutkan Berdasarkan
             </button>
-            <div class="dropdown-menu w-100">
+            <div class="dropdown-menu w-120">
                 <?php
-                $sortAscUrl = isset($_GET['kategori']) ? "?kategori=$_GET[kategori]&sort=asc" : "?sort=asc";
-                $sortDescUrl = isset($_GET['kategori']) ? "?kategori=$_GET[kategori]&sort=desc" : "?sort=desc";
+                // Current URL parameters
+                $currentUrl = isset($_GET['kategori']) ? "?kategori=$_GET[kategori]" : "";
+
+                // Sorting URLs
+                $sortAscUrl = $currentUrl . "&sort=asc";
+                $sortDescUrl = $currentUrl . "&sort=desc";
+                $sortHargaAscUrl = $currentUrl . "&sort=harga_asc";
+                $sortHargaDescUrl = $currentUrl . "&sort=harga_desc";
                 ?>
-                <a class="dropdown-item" href="<?php echo $sortAscUrl; ?>" onclick="sortProducts('asc')">Besar - Kecil</a>
-                <a class="dropdown-item" href="<?php echo $sortDescUrl; ?>" onclick="sortProducts('desc')">Kecil - Besar</a>
+                <a class=" dropdown-item" href="<?php echo $sortAscUrl; ?>" onclick="sortProducts('asc')">Ukuran, kecil ke besar</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="<?php echo $sortDescUrl; ?>" onclick="sortProducts('desc')">Ukuran, besar ke kecil</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="<?php echo $sortHargaAscUrl; ?>" onclick="sortProducts('harga_asc')">Harga, rendah ke tinggi</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="<?php echo $sortHargaDescUrl; ?>" onclick="sortProducts('harga_desc')">Harga, tinggi ke rendah</a>
             </div>
         </div>
     </div>
+
 
     <!-- Main Content -->
     <div class="container mt-5">
@@ -119,13 +173,13 @@ if (isset($_GET['kategori'])) {
                 <div class="col mb-4">
                     <div class="card h-100 product-card bg-dark text-white">
                         <a href="product-detail.php?id=<?php echo $produk['id']; ?>">
-                        <div class="card-img-container">
-                            <img src="../img/edgar-chaparro--axLDDU97I0-unsplash.jpg" class="card-img-top" alt="Product 1">
-                        </div>
+                            <div class="card-img-container">
+                                <img src="../img/<?= $produk['foto']; ?>" class="card-img-top" alt="<?= $produk['foto']; ?>">
+                            </div>
                         </a>
                         <div class="card-body">
                             <h5 class="card-title"><?php echo $produk['id']; ?> <span class="text-muted"><?php echo $produk['panjang'] . 'cm x ' . $produk['lebar'] . 'cm'; ?></span></h5>
-                            <p class="card-text">Rp. <?php echo $produk['harga']; ?></p>
+                            <p class="card-text">Rp. <?php echo number_format($produk['harga'], 0, '.', ','); ?></p>
                             <a href="product-detail.php?id=<?php echo $produk['id']; ?>" class="product-link">View Details</a>
                         </div>
                     </div>
