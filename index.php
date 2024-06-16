@@ -33,7 +33,7 @@ $queryKategori = mysqli_query($con, "SELECT * FROM kategori");
             <?php while ($kategori = mysqli_fetch_array($queryKategori)) { ?>
                 <div class="col-lg-3 col-md-6 col-6 mb-4">
                     <a href="catalogue/index.php?kategori=<?php echo $kategori['nama']; ?>" class="card text-white">
-                        <img src="img/.jpg" class="card-img" alt="Category 1 Image">
+                        <img src="img/night court.jpg" class="card-img" alt="Category 1 Image">
                         <div class="card-img-overlay d-flex justify-content-center align-items-center">
                             <h5 class="card-title font-weight-bold"><?php echo $kategori['nama']; ?></h5>
                         </div>
