@@ -72,6 +72,26 @@ if (isset($_GET['id'])) {
         </div>
     </nav>
 
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    ...
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Main Content -->
     <style>
         .main-product-image {
@@ -89,13 +109,10 @@ if (isset($_GET['id'])) {
             transition: transform 0.3s ease;
             width: 100%;
             /* Ensure image takes full width of its container */
-            min-height: 450px;
-            max-height: 450px;
+            min-width: 450px;
+            min-height: 420px;
+            max-height: 420px;
             /* Adjust maximum height to control size */
-        }
-
-        .main-product-image img:hover {
-            transform: scale(1.05);
         }
     </style>
 
@@ -109,34 +126,19 @@ if (isset($_GET['id'])) {
                     </a>
                 </div>
 
-                <!-- Modal -->
-                <div class="modal fade" id="imageModal" tabindex="-1" role="dialog" aria-labelledby="imageModalLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered modal-lg">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="imageModalLabel">Product Image</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body text-center">
-                                <img src="<?= $produk['foto']; ?>" id="modal-image" class="img-fluid rounded" alt="Product Image">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
                 <!-- Small box containers for pictures -->
-                <div class="row mt-3" id="small-images-container">
+                <div class="row" id="small-images-container">
                     <?php if (!empty($produk['foto'])) : ?>
                         <div class="col-2">
                             <div class="small-box-container">
                                 <a href="#">
-                                    <img src="../img/<?php echo $produk['foto']; ?>" id="1" class="small-product-image" alt="Image 1">
+                                    <img src="../img/<?php echo $produk['foto']; ?>" id="image1" class="small-product-image" alt="Image 1">
                                 </a>
+
                             </div>
                         </div>
                     <?php endif; ?>
+
 
                     <?php if (!empty($produk['foto1'])) : ?>
                         <div class="col-2">
@@ -168,6 +170,15 @@ if (isset($_GET['id'])) {
                         </div>
                     <?php endif; ?>
 
+                    <?php if (!empty($produk['foto4'])) : ?>
+                        <div class="col-2">
+                            <div class="small-box-container">
+                                <a href="#">
+                                    <img src="../img/<?php echo $produk['foto4']; ?>" id="5" class="small-product-image rounded-5" alt="Image 5">
+                                </a>
+                            </div>
+                        </div>
+                    <?php endif; ?>
                     <?php if (!empty($produk['foto4'])) : ?>
                         <div class="col-2">
                             <div class="small-box-container">
@@ -225,7 +236,7 @@ if (isset($_GET['id'])) {
                         <i class="bi bi-whatsapp"></i>
                     </a>
                 </div>
-                <h5>Deskripsi Produk</h5>
+                <h5 class="mt-2">Deskripsi Produk</h5>
                 <p><?php echo $produk['detail']; ?></p>
             </div>
 
@@ -275,11 +286,16 @@ if (isset($_GET['id'])) {
                 });
             </script>
 
-            <!-- Bootstrap JS and dependencies -->
-            <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
+            <script>
+                $('#myModal').on('shown.bs.modal', function() {
+                    $('#myInput').trigger('focus')
+                })
             </script>
-            <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js" integrity="sha384-n1J5GVJiw7s1sMszBkb3UwBLzQNMDUQsY+Em5V/Qz7/K5YgmHvoL0voG2BzMS6vm" crossorigin="anonymous"></script>
-            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8sh+8BGRD1WqXu7B8jG/6F7p5qUovyJ2FwNX5u" crossorigin="anonymous"></script>
+
+            <!-- Bootstrap JS and dependencies -->
+            <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+            <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </body>
 
 </html>
