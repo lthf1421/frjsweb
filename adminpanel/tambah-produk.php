@@ -169,7 +169,7 @@ function generateRandomString($length = 10)
                             $image_size = $_FILES["foto"]["size"];
 
                             // Generate a random name for main photo
-                            $random_name = generateRandomString(); // default length 20 characters
+                            $random_name = generateRandomString(); // assuming you have a function for this
                             $new_name = $random_name . "." . $imageFileType;
 
                             // Validate and move main photo
@@ -177,15 +177,19 @@ function generateRandomString($length = 10)
                                 if ($image_size > 5000000) {
                         ?>
                                     <div class="alert alert-warning mt-3" role="alert">
-                                        File tidak boleh lebih dari 5 mb
+                                        Gagal menyimpan, Ukuran foto tidak boleh lebih dari 5mb.
                                     </div>
                                 <?php
+                                    // Don't proceed with further operations
+                                    exit; // Exit to prevent further execution
                                 } elseif (!in_array($imageFileType, ['jpg', 'png', 'jpeg'])) {
                                 ?>
-                                    <div class="alert alert-warning mt-3" role="alert">
+                                    <div class="alert alert-danger mt-3" role="alert">
                                         Format file harus jpg, png atau jpeg
                                     </div>
                                     <?php
+                                    // Don't proceed with further operations
+                                    exit; // Exit to prevent further execution
                                 } else {
                                     if (move_uploaded_file($_FILES["foto"]["tmp_name"], $target_dir . $new_name)) {
                                         // Main photo uploaded successfully
@@ -195,6 +199,8 @@ function generateRandomString($length = 10)
                                             Terjadi kesalahan saat mengunggah file foto utama
                                         </div>
                                     <?php
+                                        // Don't proceed with further operations
+                                        exit; // Exit to prevent further execution
                                     }
                                 }
                             }
@@ -221,16 +227,20 @@ function generateRandomString($length = 10)
                                     // Validate and move additional photo
                                     if ($image_size_alt > 5000000) {
                                     ?>
-                                        <div class="alert alert-warning mt-3" role="alert">
-                                            File tidak boleh lebih dari 5 mb
+                                        <div class="alert alert-danger mt-3" role="alert">
+                                            Gagal menyimpan, Ukuran foto tidak boleh lebih 5mb.
                                         </div>
                                     <?php
+                                        // Continue loop to handle next photo
+                                        continue;
                                     } elseif (!in_array($imageFileType_alt, ['jpg', 'png', 'gif'])) {
                                     ?>
                                         <div class="alert alert-warning mt-3" role="alert">
                                             Format file harus jpg, png atau gif
                                         </div>
                                         <?php
+                                        // Continue loop to handle next photo
+                                        continue;
                                     } else {
                                         if (move_uploaded_file($_FILES[$fotoalt_name]["tmp_name"], $target_dir . $new_name_alt)) {
                                             // Additional photo uploaded successfully
@@ -240,28 +250,44 @@ function generateRandomString($length = 10)
                                             <div class="alert alert-warning mt-3" role="alert">
                                                 Terjadi kesalahan saat mengunggah file foto tambahan <?= $i ?>
                                             </div>
-                                <?php
+                                    <?php
+                                            // Continue loop to handle next photo
+                                            continue;
                                         }
                                     }
                                 }
                             }
 
-                            // Insert into database
-                            $queryTambah = mysqli_query($con, "INSERT INTO produk (kategori_id, ukuran_id, nama, harga, foto, foto1, foto2, foto3, foto4, detail, ketersediaan_stok)
-        VALUES ('$kategori', '$ukuran', '$nama', '$harga', '$new_name', '$fotoalt1', '$fotoalt2', '$fotoalt3', '$fotoalt4', '$detail', '$ketersediaan_stok')");
+                            // Insert into database only if main photo upload was successful
+                            if ($nama_file != '' && $image_size <= 50000000 && in_array($imageFileType, ['jpg', 'png', 'jpeg'])) {
+                                // Insert into database
+                                $queryTambah = mysqli_query($con, "INSERT INTO produk (kategori_id, ukuran_id, nama, harga, foto, foto1, foto2, foto3, foto4, detail, ketersediaan_stok)
+            VALUES ('$kategori', '$ukuran', '$nama', '$harga', '$new_name', '$fotoalt1', '$fotoalt2', '$fotoalt3', '$fotoalt4', '$detail', '$ketersediaan_stok')");
 
-                            if ($queryTambah) {
+                                if ($queryTambah) {
+                                    ?>
+                                    <div class="alert alert-success mt-3" role="alert">
+                                        Produk baru berhasil disimpan
+                                    </div>
+                                    <meta http-equiv="refresh" content="2; url=produk.php" />
+                                <?php
+                                } else {
                                 ?>
-                                <div class="alert alert-success mt-3" role="alert">
-                                    Produk baru berhasil disimpan
-                                </div>
-                                <meta http-equiv="refresh" content="2; url=produk.php" />
-                        <?php
+                                    <div class="alert alert-danger mt-3" role="alert">
+                                        <?= mysqli_error($con) ?>
+                                    </div>
+                                <?php
+                                }
                             } else {
-                                echo mysqli_error($con);
+                                ?>
+                                <div class="alert alert-warning mt-3" role="alert">
+                                    Terjadi kesalahan, data produk tidak dapat disimpan
+                                </div>
+                        <?php
                             }
                         }
                         ?>
+
 
 
                         <form action="" method="post" enctype="multipart/form-data">
