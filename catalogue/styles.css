@@ -191,6 +191,10 @@ footer a {
     border-radius: 5px; /* Rounded corners */
 }
 
+.small-image-container {
+    margin-top: 100px;
+}
+
 .small-box-container img {
     border: 2px solid #fff; /* White bold border */
     box-shadow: #95a2af;
@@ -251,5 +255,9 @@ body {
 
     .collapse.show {
         display: block !important;
+    }
+
+    .navbar-collapse {
+        justify-content: center !important;
     }
 }
