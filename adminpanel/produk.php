@@ -1,7 +1,7 @@
 <?php
 require "../koneksi.php";
 
-$query = mysqli_query($con, "SELECT * FROM produk");
+$query = mysqli_query($con, "SELECT a.*, b.nama AS nama_kategori FROM produk a JOIN kategori b ON a.kategori_id=b.id");
 $jumlahProduk = mysqli_num_rows($query);
 $queryKategori = mysqli_query($con, "SELECT * FROM kategori");
 $jumlahKategori = mysqli_num_rows($queryKategori);
@@ -79,6 +79,7 @@ function generateRandomString($length = 10)
                         <tr>
                             <th>No.</th>
                             <th>Nama</th>
+                            <th>Kategori</th>
                             <th>Harga</th>
                             <th>Ketersediaan Stok</th>
                             <th>Action</th>
@@ -99,10 +100,11 @@ function generateRandomString($length = 10)
                                 <tr>
                                     <td><?php echo $jumlah; ?></td>
                                     <td><?php echo $data['nama']; ?></td>
+                                    <td><?php echo $data['nama_kategori']; ?></td>
                                     <td><?php echo $data['harga']; ?></td>
                                     <td><?php echo $data['ketersediaan_stok']; ?></td>
                                     <td>
-                                        <a href="produk-detail.php?p=<?php echo $data['id']; ?>" class="btn btn-info"><i class="fas fa-pen" title="Edit"></i>
+                                        <a href="edit-produk.php?p=<?php echo $data['id']; ?>" class="btn btn-info"><i class="fas fa-pen" title="Edit"></i>
                                         </a>
                                     </td>
                                 </tr>
