@@ -65,6 +65,12 @@ function generateRandomString($length = 10)
             </ol>
         </nav>
 
+        <a href="../adminpanel/index.php" class="no-decoration text-white">
+            <div class="btn btn-primary mb-3">
+                <i class="fas fa-long-arrow-alt-left"></i> Kembali
+            </div>
+        </a>
+
         <a href="../adminpanel/tambah-produk.php" class="no-decoration text-white">
             <div class="btn btn-success mb-3">
                 <i class="fa-regular fa-square-plus"></i> Tambah Produk Baru
@@ -82,7 +88,8 @@ function generateRandomString($length = 10)
                             <th>Kategori</th>
                             <th>Harga</th>
                             <th>Ketersediaan Stok</th>
-                            <th>Action</th>
+                            <th>Edit</th>
+                            <th>Gallery</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -105,6 +112,10 @@ function generateRandomString($length = 10)
                                     <td><?php echo $data['ketersediaan_stok']; ?></td>
                                     <td>
                                         <a href="edit-produk.php?p=<?php echo $data['id']; ?>" class="btn btn-info"><i class="fas fa-pen" title="Edit"></i>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a href="edit-foto-produk.php?p=<?php echo $data['id']; ?>" class="btn btn-warning"><i class="bi bi-image"></i>
                                         </a>
                                     </td>
                                 </tr>
