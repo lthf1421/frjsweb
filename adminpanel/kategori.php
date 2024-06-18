@@ -56,6 +56,11 @@ function generateRandomString($length = 10)
                 <i class="fas fa-long-arrow-alt-left"></i> Kembali
             </div>
         </a>
+        <a href="../adminpanel/tambah-kategori.php" class="no-decoration text-white">
+            <div class="btn btn-success mb-3">
+                <i class="fa-regular fa-square-plus"></i> Tambah Kategori Baru
+            </div>
+        </a>
         <h2>List Kategori</h2>
         <div class="table-responsive mt-5">
             <table class="table">
@@ -64,6 +69,7 @@ function generateRandomString($length = 10)
                         <th>No. </th>
                         <th>Nama</th>
                         <th>Background</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -81,7 +87,11 @@ function generateRandomString($length = 10)
                             <tr>
                                 <td><?php echo $number; ?></td>
                                 <td><?php echo $data['nama']; ?></td>
-                                <td><img src="../img/CkKF1nhDeSGUnc1VwW5K.png" alt="" width="50px"></td>
+                                <td><img src="../img/<?php echo $data['bg']; ?>" alt="" width="50px"></td>
+                                <td>
+                                    <a href="edit-kategori.php?p=<?php echo $data['id']; ?>" class="btn btn-info"><i class="fas fa-pen" title="Edit"></i>
+                                    </a>
+                                </td>
                             </tr>
                     <?php
                         }
