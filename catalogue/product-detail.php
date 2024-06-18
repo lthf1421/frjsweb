@@ -226,6 +226,14 @@ if (isset($_GET['id'])) {
                             /* Space between text and icon */
                         }
 
+                        .whatsapp-share-button i:hover {
+                            color: white;
+                        }
+
+                        .whatsapp-share-button:hover {
+                            color: white;
+                        }
+
                         .whatsapp-share-button:hover {
                             color: white;
                             text-decoration: none;
