@@ -96,7 +96,9 @@ if (isset($_GET['kategori'])) {
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@100..900&family=Kanit:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100..900;1,100..900&family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
     <style>
         .product-card {
             height: 100%;
@@ -140,7 +142,7 @@ if (isset($_GET['kategori'])) {
     <div class="container mt-3 d-inline-block">
         <div class="btn-group custom-dropdown">
             <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Urutkan Berdasarkan
+                Sort by
             </button>
             <div class="dropdown-menu w-120">
                 <?php
@@ -164,10 +166,51 @@ if (isset($_GET['kategori'])) {
         </div>
     </div>
 
+    <!-- Icons Style-->
+    <style>
+        .product-link {
+            padding: 10px;
+            background-color: #327B9B;
+            color: white;
+            border-radius: 5px;
+            /* Remove underline */
+            transition: background-color 0.3s ease;
+        }
+
+        .product-link:hover {
+            background-color: #2E708D;
+        }
+
+        .whatsapp-share-button {
+            padding: 10px;
+            background-color: #128C7E;
+            /* WhatsApp green color */
+            color: white;
+            border-radius: 5px;
+            text-decoration: none;
+            /* Remove underline */
+            transition: background-color 0.3s ease;
+            margin-left: 3px;
+        }
+
+        .whatsapp-share-button:hover {
+            background-color: #298047;
+            color: white;
+            /* Darker shade of WhatsApp green on hover */
+        }
+
+        .whatsapp-share-button i {
+            font-size: 1.5rem;
+            /* Adjust icon size if needed */
+            vertical-align: middle;
+            /* Center the icon vertically */
+        }
+    </style>
+
 
     <!-- Main Content -->
     <div class="container mt-5">
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-4">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4">
             <!-- Product Cards Section -->
             <?php while ($produk = mysqli_fetch_array($queryProdukCards)) { ?>
                 <div class="col mb-4">
@@ -178,9 +221,12 @@ if (isset($_GET['kategori'])) {
                             </div>
                         </a>
                         <div class="card-body">
-                            <h5 class="card-title"><?php echo $produk['id']; ?> <span class="text-muted"><?php echo $produk['panjang'] . 'cm x ' . $produk['lebar'] . 'cm'; ?></span></h5>
+                            <h5 class="card-title"><?php echo $produk['nama']; ?> <span class="text-muted"><?php echo $produk['panjang'] . 'cm x ' . $produk['lebar'] . 'cm'; ?></span></h5>
                             <p class="card-text">Rp. <?php echo number_format($produk['harga'], 0, '.', ','); ?></p>
                             <a href="product-detail.php?id=<?php echo $produk['id']; ?>" class="product-link">View Details</a>
+                            <a href="whatsapp://send?text=<?php echo urlencode('Check out this product: ' . $produk['nama'] . ' - Rp. ' . $produk['harga']); ?>" class="whatsapp-share-button">
+                                <i class="bi bi-whatsapp"></i>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -188,6 +234,7 @@ if (isset($_GET['kategori'])) {
             <!-- End of Product Card loop -->
         </div>
     </div>
+
 
     <!-- Footer -->
     <footer class="text-white text-center text-lg-start mt-5">
