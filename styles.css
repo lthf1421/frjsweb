@@ -1,263 +1,104 @@
-/* Custom navbar padding and margin */
-.custom-navbar {
-    padding: 10px 20px;
-    /* Adjust as needed */
-    margin-bottom: 20px;
-    /* Adjust as needed */
-}
-
-.custom-navbar .container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-/* Increase font size for the navbar-brand */
-.custom-navbar .navbar-brand {
-    font-size: 2rem;
-    font-weight: 300;
-
-    /* Adjust as needed */
-}
-
-/* Increase font size for the bold text within the navbar-brand */
-.custom-navbar .navbar-brand .bold-text {
-    font-size: 2rem;
-    /* Adjust as needed */
-    font-weight: 600;
-    font-style: italic;
-    /* Ensure the text is bold */
-}
-
-/* Ensure the navbar text color remains visible against transparent background */
-.navbar-dark .navbar-nav .nav-link {
-    color: white !important;
-    padding: 5px 10px;
-    /* Adjust padding as needed */
-}
-
-.navbar-dark .navbar-brand {
-    color: white !important;
-}
-
-/* Additional styles for navbar links */
-.navbar-dark .nav-item {
-    margin-left: 10px;
-    /* Add margin between nav items */
-}
-
-/* Ensure the rest of your styles are maintained */
 body {
     font-family: "Kanit", sans-serif;
-    background-color: #2b2a46;
-    color: white;
+    margin: 0;
+    padding: 0;
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
     min-height: 100vh;
+    /* Set background image */
+    background-color: #39385c;
 }
 
-.transparent-navbar {
-    background-color: transparent !important;
-    border: none !important;
+.header {
+    margin-bottom: 50px;
 }
 
-.header-image {
-    width: 100%;
-    max-width: 1300px;
-    height: 200px;
-    margin: 0 auto;
+.bold-text {
+    /* Adjust as needed */
+    font-weight: 700;
+    font-style: italic;
+    /* Ensure the text is bold */
+    /* Adjust the value as needed */
+}
+
+h1 {
+    font-weight: 300;
+    font-style: normal;
+    color: #ffffff;
+}
+
+p {
+    color: #ffffff;
+}
+
+.card {
     overflow: hidden;
-    border-radius: 20px;
+    border: none;
+    box-shadow: none;
+    text-decoration: none;
+    height: 150px;
+    /* Adjust the height to make the card thinner */
+    transition: transform 0.3s, box-shadow 0.3s;
+    position: relative;
+    display: flex;
+    flex-direction: column;
 }
 
-.header-image img {
+.card-body {
+    margin-top: auto;
+    background: rgba(0, 0, 0, 0.226);
     width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.card:hover {
+    transform: scale(1.05);
+    /* Scale the card slightly on hover */
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.185);
+    /* Add shadow on hover */
+}
+
+.card-img {
     height: 100%;
+    /* Ensure the image covers the entire card */
     object-fit: cover;
+    /* Cover the entire card while maintaining aspect ratio */
 }
 
-.aspect-ratio-container {
-    position: relative;
-    width: 100%; /* Adjust width as needed */
-    padding-top: 85%; /* This creates a 4:3 aspect ratio (75% = 3/4 * 100) */
-    overflow: hidden;
+.card-title {
+    font-size: 1.5rem;
 }
 
-.aspect-ratio-container img {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* Ensures the image covers the container while maintaining aspect ratio */
+.card-img-overlay {
+    background: rgba(0, 0, 0, 0.356);
+    /* Optional: Add a dark overlay */
 }
 
-
-.product-card {
-    background-color: #343a40;
-    color: #f8f9fa;
-}
-
-.product-card:hover{
-    background-color: #343a40;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.185);
-    color: #f8f9fa;
-}
-
-.product-card .card-img-container {
-    position: relative;
-    width: 100%;
-    padding-bottom: 100%;
-    overflow: hidden;
-}
-
-.product-card .card-img-container img {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transform: translate(-50%, -50%);
-}
-.dropdown-item:hover {
-    background-color: #92d12c !important; /* Green color on hover */
-}
-
-.img-fluid {
-    max-width: 100%;
-    height: auto;
-}
-
-.product-card .card-title {
-    color: #f8f9fa;
-}
-
-.product-card .card-text {
-    color: #e9ecef;
-}
-
-.product-card .product-link {
-    color: #ffc107;
-}
-
-.product-card .product-link:hover {
-    color: #e0a800;
-}
-
-.container {
-    flex: 1;
-}
-
-footer {
-    background-color: #2b2a46;
-    padding: 10px 0;
-    position: relative;
-    width: 100%;
-    bottom: 0;
-}
-
-footer a {
-    color: white;
+.btn {
+    font-size: 1rem;
+    padding: 10px 20px;
 }
 
 .btn-primary {
-    margin-top: 1px;
-    margin-bottom: 10px;
-    width: 200px; /* Adjust width as needed */
-    min-width: 10px; /* Set a minimum width for consistency */
-    background-color: transparent !important; /* Set button background to transparent */
-    border: 1px solid white; /* Set white border */
-    color: white; /* Text color */
+    color: white;
+    /* Keep font color white */
+    background-color: transparent;
+    /* Remove background color */
+    border: none;
+    /* Remove border */
+    font-weight: 200;
+    /* Reset font weight */
+    text-align: left;
 }
 
 .btn-primary:hover {
-    background-color: rgba(255, 255, 255, 0.1); /* Light transparent background on hover */
-    border: 1px solid white; /* Set white border */
-}
-
-.btn-primary:focus {
-    box-shadow: none; /* Remove the default blue shadow on focus */
-}
-
-.small-box-container {
-    display: inline-block;
-    padding-right: 12px; /* Adjust padding as needed */
-    padding-bottom: 15px;
-    overflow: hidden;
-    position: relative;
-    width: 80px; /* Fixed width for each small box */
-    height: 90px; /* Fixed height for each small box */
-    border-radius: 5px; /* Rounded corners */
-}
-
-.small-image-container {
-    margin-top: 100px;
-}
-
-.small-box-container img {
-    border: 2px solid #fff; /* White bold border */
-    box-shadow: #95a2af;
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* Cover the container with the image */
-    border-radius: 5px; /* Inherit rounded corners from parent */
-}
-
-.img-square {
-    width: 100%; /* Ensure image fills container width */
-    position: absolute; /* Position the image absolutely */
-    top: 0;
-    left: 0;
-    object-fit: cover; /* Cover the container with image */
-}
-
-
-.card-text .product-link {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: #c4e6be;
-    color: white;
-    text-decoration: none;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
-}
-
-.product-link:hover {
-    background-color: #539919;
-}
-
-html,
-body {
-    height: 100%;
-}
-
-.category-list {
-    padding: 0;
-    list-style: none;
-}
-
-.category-link {
-    color: white;
-    text-decoration: none;
-    display: block;
-    padding: 10px 0;
-}
-
-.category-link:hover {
+    color: rgb(226, 250, 15);
+    /* Keep font color white on hover */
+    background-color: transparent;
+    /* Remove background color on hover */
     text-decoration: underline;
-}
-
-@media (min-width: 992px) {
-    .d-lg-none {
-        display: none;
-    }
-
-    .collapse.show {
-        display: block !important;
-    }
-
-    .navbar-collapse {
-        justify-content: center !important;
-    }
+    /* Add underline on hover */
 }
