@@ -1,10 +1,11 @@
 <?php
 require "../koneksi.php";
 
-$query = mysqli_query($con, "SELECT * FROM produk");
-$jumlahProduk = mysqli_num_rows($query);
-$queryKategori = mysqli_query($con, "SELECT * FROM kategori");
-$queryUkuran = mysqli_query($con, "SELECT * FROM ukuran");
+$id = $_GET['p'];
+
+
+$queryKategori = mysqli_query($con, "SELECT * FROM kategori WHERE id='$id'");
+$data = mysqli_fetch_array($queryKategori);
 
 function generateRandomString($length = 10)
 {
@@ -24,7 +25,7 @@ function generateRandomString($length = 10)
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Produk</title>
+    <title>Edit Kategori</title>
     <script src="https://kit.fontawesome.com/296a2adfbf.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
@@ -133,7 +134,7 @@ function generateRandomString($length = 10)
                     </a>
                 </li>
                 <li class="breadcrumb-item active aria-current-page">
-                    Tambah Kategori
+                    Edit Kategori
                 </li>
             </ol>
         </nav>
@@ -149,80 +150,113 @@ function generateRandomString($length = 10)
             <div class="row justify-content-center">
                 <div class="col-lg-8">
                     <div class="card p-4 shadow">
-                        <h3 class="mb-4">Tambah Kategori</h3>
+                        <h3 class="mb-4">Edit Kategori</h3>
 
                         <?php
                         if (isset($_POST['simpan'])) {
                             $nama = htmlspecialchars($_POST['nama']);
 
-                            $target_dir = "../img/";
-                            $nama_file = basename($_FILES["bg"]["name"]);
-                            $target_file = $target_dir . $nama_file;
-                            $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
-                            $image_size = $_FILES["bg"]["size"];
-                            $random_name = generateRandomString(20);
-                            $new_name = $random_name . "." . $imageFileType;
+                            // Check if a file was uploaded
+                            if (!empty($_FILES['bg']['name'])) {
+                                $target_dir = "../img/";
+                                $nama_file = basename($_FILES["bg"]["name"]);
+                                $target_file = $target_dir . $nama_file;
+                                $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+                                $image_size = $_FILES["bg"]["size"];
+                                $random_name = generateRandomString(20);
+                                $new_name = $random_name . "." . $imageFileType;
 
-                            if ($nama == '') {
+                                if ($image_size > 10000000) {
                         ?>
-                                <div class="alert alert-warning mt-3" role="alert">
-                                    Nama kategori wajib diisi
-                                </div>
+                                    <div class="alert alert-warning mt-3" role="alert">
+                                        File tidak boleh lebih dari 10 mb
+                                    </div>
                                 <?php
-                            } else {
-                                if ($nama_file != '') {
-                                    if ($image_size > 10000000) {
+                                } elseif (!in_array($imageFileType, ['jpg', 'png', 'gif'])) {
                                 ?>
-                                        <div class="alert alert-warning mt-3" role="alert">
-                                            File tidak boleh lebih dari 10 mb
-                                        </div>
-                                        <?php
-                                    } else {
-                                        if ($imageFileType != 'jpg' && $imageFileType != 'png' && $imageFileType != 'gif') {
-                                        ?>
-                                            <div class="alert alert-warning mt-3" role="alert">
-                                                Format file harus jpg, png atau gif
-                                            </div>
+                                    <div class="alert alert-warning mt-3" role="alert">
+                                        Format file harus jpg, png atau gif
+                                    </div>
                                     <?php
-                                        } else {
-                                            move_uploaded_file($_FILES["bg"]["tmp_name"], $target_dir . $new_name);
-                                        }
+                                } else {
+                                    // Upload the file
+                                    if (move_uploaded_file($_FILES["bg"]["tmp_name"], $target_dir . $new_name)) {
+                                        // Update both nama and bg fields in database
+                                        $queryUpdate = mysqli_query($con, "UPDATE kategori SET nama='$nama', bg='$new_name' WHERE id='$id'");
+                                    } else {
+                                    ?>
+                                        <div class="alert alert-warning mt-3" role="alert">
+                                            Gagal mengunggah file
+                                        </div>
+                                <?php
                                     }
                                 }
-                                $queryTambah = mysqli_query($con, "INSERT INTO kategori (nama, bg)
-                                VALUES ('$nama', '$new_name')");
+                            } else {
+                                // Only update the nama field in database
+                                $queryUpdate = mysqli_query($con, "UPDATE kategori SET nama='$nama' WHERE id='$id'");
+                            }
 
-                                if ($queryTambah) {
-                                    ?>
-                                    <div class="alert alert-success mt-3" role="alert">
-                                        Kategori baru berhasil disimpan
-                                    </div>
-                                    <meta http-equiv="refresh" content="2; url=kategori.php" />
+                            if (isset($queryUpdate) && $queryUpdate) {
+                                ?>
+                                <div class="alert alert-primary mt-3" role="alert">
+                                    Kategori berhasil diupdate
+                                </div>
+                                <meta http-equiv="refresh" content="2; url=kategori.php" />
+                            <?php
+                            } else {
+                                echo mysqli_error($con);
+                            }
+                        }
+
+                        // Assuming $con is your database connection
+
+                        // Check if form is submitted for deletion
+                        if (isset($_POST['hapus'])) {
+                            // Sanitize and validate $id
+                            $id = mysqli_real_escape_string($con, $_GET['p']);
+
+                            // Execute delete query
+                            $queryHapus = mysqli_query($con, "DELETE FROM kategori WHERE id='$id'");
+
+                            if ($queryHapus) {
+                            ?>
+                                <div class="alert alert-success mt-3" role="alert">
+                                    Produk berhasil dihapus
+                                </div>
+                                <meta http-equiv="refresh" content="2; url=kategori.php" />
+                            <?php
+                            } else {
+                                // Handle deletion error
+                            ?>
+                                <div class="alert alert-danger mt-3" role="alert">
+                                    Terjadi kesalahan saat menghapus produk.
+                                </div>
                         <?php
-                                } else {
-                                    echo mysqli_error($con);
-                                }
                             }
                         }
                         ?>
 
+
+
                         <form action="" method="post" enctype="multipart/form-data">
                             <div class="form-group">
                                 <label for="nama">Nama Kategori</label>
-                                <input type="text" id="nama" name="nama" class="form-control" autocomplete="off" placeholder="SB99C" required>
+                                <input type="text" id="nama" name="nama" value="<?= $data['nama']; ?>" class="form-control" autocomplete="off" placeholder="SB99C" required>
                             </div>
 
                             <!-- File Upload Section -->
                             <div class="file-upload mb-4" id="file-upload-1">
-                                <label for="foto">Background</label>
+                                <label for="foto">Background sebelumnya :</label>
+                                <img src="../img/<?= $data['bg']; ?>" height="400px" alt="">
                                 <div class="input-group">
-                                    <input type="file" name="bg" id="bg" class="form-control" required>
+                                    <input type="file" name="bg" id="bg" class="form-control">
                                     <div class="input-group-append">
-                                        <button class="btn btn-outline-danger delete-btn" type="button" style="display:none;">Delete</button>
+                                        <button class="btn btn-outline-danger delete-btn" type="button" style="display:none; background-color:chocolate;">Undo</button>
                                     </div>
                                 </div>
                             </div>
                             <button type="submit" class="btn btn-primary mt-3" name="simpan">Simpan</button>
+                            <button type="submit" class="btn btn-danger mt-3" name="hapus">Hapus</button>
                         </form>
                     </div>
                 </div>
