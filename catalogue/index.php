@@ -121,7 +121,7 @@ if (isset($_GET['kategori'])) {
                         <a class="nav-link" href="../index.php">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">All Products</a>
+                        <a class="nav-link" href="../frjs/about-us.php#contact">Contact Us</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#"><i class="bi bi-bag"></i></a>
@@ -239,7 +239,7 @@ if (isset($_GET['kategori'])) {
     <!-- Footer -->
     <footer class="text-white text-center text-lg-start mt-5">
         <div class="container d-flex justify-content-between align-items-center py-3">
-            <a href="#" class="text-white">Contact Us</a>
+            <a href="../frjs/about-us.php#garansi" class="text-white">Kebijakan Garansi</a>
             <span>© 2024 Your Company</span>
             <div>
                 <a href="#" class="text-white mr-2">
