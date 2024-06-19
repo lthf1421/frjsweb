@@ -257,7 +257,7 @@ $queryKategori = mysqli_query($con, "SELECT * FROM kategori");
                             <h2 class="text-center mb-4"><i class="bi bi-tv"></i></h2>
                             <p class="lead text-center">1. Pilih produk yang Anda inginkan melalui katalog produk yang tersedia di situs kami. Klik "View Details" untuk melihat detail produk.</p>
                             <h2 class="text-center mb-4"><i class="bi bi-chat-left-text" style="font-size: 6.5rem;"></i></h2>
-                            <p class="lead text-center">2. Klik tombol Pre Order atau Order (apabila produk ready-stok) pada halaman detail produk agar diarahkan ke halaman Whatsapp Admin FRJS, untuk melakukan pemesanan.</p>
+                            <p class="lead text-center">2. Klik tombol "Order Sekarang" pada halaman detail produk agar diarahkan ke halaman Whatsapp Admin FRJS, untuk melakukan pemesanan.</p>
                             <h2 class="text-center mb-4"><i class="fa-regular fa-file-lines" style="font-size: 7rem;"></i></h2>
                             <p class="lead text-center">3. Admin akan memberikan invoice pembelian beserta pengiriman, Silahkan lakukan pembayaran melalui transfer ke rekening yang tertera pada invoice.</p>
                             <h2 class="text-center mb-4"><i class="bi bi-truck"></i></h2>
