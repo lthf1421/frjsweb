@@ -83,13 +83,12 @@ function generateRandomString($length = 10)
                 <table class="table">
                     <thead>
                         <tr>
-                            <th>No.</th>
                             <th>Nama</th>
                             <th>Kategori</th>
                             <th>Harga</th>
                             <th>Ketersediaan Stok</th>
                             <th>Edit</th>
-                            <th>Gallery</th>
+                            <th>Galeri</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -105,7 +104,6 @@ function generateRandomString($length = 10)
                             while ($data = mysqli_fetch_array($query)) {
                             ?>
                                 <tr>
-                                    <td><?php echo $jumlah; ?></td>
                                     <td><?php echo $data['nama']; ?></td>
                                     <td><?php echo $data['nama_kategori']; ?></td>
                                     <td><?php echo $data['harga']; ?></td>
@@ -115,7 +113,7 @@ function generateRandomString($length = 10)
                                         </a>
                                     </td>
                                     <td>
-                                        <a href="edit-foto-produk.php?p=<?php echo $data['id']; ?>" class="btn btn-warning"><i class="bi bi-image"></i>
+                                        <a href="edit-foto-produk.php?p=<?php echo $data['id']; ?>" class="btn btn-warning " style="color: white;"><i class="bi bi-image"></i>
                                         </a>
                                     </td>
                                 </tr>
