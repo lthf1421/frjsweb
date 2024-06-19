@@ -154,11 +154,18 @@ function generateRandomString($length = 10)
             }
         </style>
 
+        <a href="../adminpanel/produk.php" class="no-decoration text-white">
+            <div class="btn btn-primary mb-3">
+                <i class="fas fa-long-arrow-alt-left"></i> Kembali
+            </div>
+        </a>
+
         <div class="container mt-5">
             <div class="row justify-content-center">
                 <div class="col-lg-8">
                     <div class="card p-4 shadow">
                         <h3 class="mb-4">Galeri <?= $data['nama'] ?></h3>
+                        <p class="text-muted"> *Note : selalu klik "Update" sebelum menginput file foto selanjutnya.</p>
 
                         <!-- Command SQL untuk update foto utama & alternatif -->
 
@@ -207,6 +214,8 @@ function generateRandomString($length = 10)
                                 <div class="alert alert-primary mt-3" role="alert">
                                     Foto Utama berhasil diupdate
                                 </div>
+                                <meta http-equiv="refresh" content="2; url=edit-foto-produk.php?p=<?= $data['id']; ?>" />
+
                         <?php
                             } else {
                                 echo mysqli_error($con);
