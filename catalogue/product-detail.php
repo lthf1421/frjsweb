@@ -8,12 +8,21 @@ if (isset($_GET['id'])) {
                                              WHERE produk.id='$productId'");
     $produk = mysqli_fetch_assoc($queryProdukDetail);
 
+    if (!$produk) {
+        // Redirect to an error page or handle the case where product ID is not found
+        header("Location: ../error.php");
+        exit();
+    }
+
     // Retrieve product images from the database
     $queryProductImages = mysqli_query($con, "SELECT foto FROM produk WHERE id='$productId'");
     $productImages = [];
     while ($row = mysqli_fetch_assoc($queryProductImages)) {
         $productImages[] = $row['foto'];
     }
+
+    // Fetch ketersediaan_stok
+    $ketersediaan_stok = $produk['ketersediaan_stok'];
 } else {
     // Redirect to the homepage or an error page if no product ID is provided
     header("Location: ../index.php");
@@ -155,9 +164,10 @@ if (isset($_GET['id'])) {
                     <h1 class="display-4"><?php echo $produk['nama']; ?></h1>
                     <p class="lead">Rp. <?php echo number_format($produk['harga'], 0, '.', ','); ?></p>
                     <p class="text-muted"><?php echo $produk['panjang'] . ' cm x ' . $produk['lebar'] . ' cm'; ?></p>
+                    <p style="font-style: italic;"><?php echo trim($ketersediaan_stok == 'pre-order' ? 'Pre Order' : 'Ready Stock'); ?></p>
                     <a href="
                     https://wa.me/6287838137197?text=Halo%2C%20admin.%0ASaya%20ingin%20memesan%20produk%20<?php echo $produk['nama']; ?>
-                    " class="btn btn-primary">Pre Order</a>
+                    " class="btn btn-primary">Order Sekarang</a>
                     <!-- WhatsApp share icon -->
 
                     <style>
