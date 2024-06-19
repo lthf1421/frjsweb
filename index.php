@@ -42,8 +42,10 @@ $queryKategori = mysqli_query($con, "SELECT * FROM kategori");
         <a href="./frjs/about-us.php">
             <button class="btn btn-primary mt-3">About Us</button>
         </a>
-        <button class="btn btn-primary mt-3"><i class="bi bi-instagram"></i></button>
-        <a href="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.6946472080144!2d106.85877551413715!3d-6.171623962196151!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f506393c48b1%3A0xe8dc439c3edd9f4b!2sScoreboard%20%26%20LED%20Display!5e0!3m2!1sen!2sid!4v1679825900376!5m2!1sen!2sid">
+        <a href="#">
+            <button class="btn btn-primary mt-3"><i class="bi bi-instagram"></i></button>
+        </a>
+        <a href="https://wa.me/6287838137197?text=Halo%2C%20admin%20frjs">
             <button class="btn btn-primary mt-3"><i class="bi bi-whatsapp"></i></i></button>
         </a>
     </div>
