@@ -221,6 +221,8 @@ function generateRandomString($length = 10)
                                         <button class="btn btn-outline-danger delete-btn" type="button" style="display:none;">Delete</button>
                                     </div>
                                 </div>
+                                <p class="text-muted"> *Note : Kunjungi <a href="https://www.unsplash.com" target="_blank">Unsplash.com </a> untuk browsing gambar HD free.</p>
+
                             </div>
                             <button type="submit" class="btn btn-primary mt-3" name="simpan">Simpan</button>
                         </form>
@@ -228,7 +230,7 @@ function generateRandomString($length = 10)
                 </div>
 
             </div>
-            <!--End of tambah produk -->
+            <!--End of tambah kategori -->
 
             <!-- Delete files on foto form-->
 
