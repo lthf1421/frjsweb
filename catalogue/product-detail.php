@@ -64,7 +64,7 @@ if (isset($_GET['id'])) {
                         <a class="nav-link" href="../index.php">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">All Products</a>
+                        <a class="nav-link" href="/frjs/about-us.php#contact">Contact Us</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#"><i class="bi bi-bag"></i></a>
