@@ -5,16 +5,19 @@ require "../koneksi.php";
 $queryKategori = mysqli_query($con, "SELECT * FROM kategori");
 $queryUkuran = mysqli_query($con, "SELECT * FROM ukuran");
 
-// Initialize the menu query variable
-$queryProdukMenu = null;
+// Initialize variables
+$bg = ''; // Initialize $bg variable to store background image path
 
 // Handle the selected category and size
 if (isset($_GET['kategori'])) {
     $kategori = mysqli_real_escape_string($con, $_GET['kategori']); // Sanitize input
-    $queryGetKategoriId = mysqli_query($con, "SELECT id FROM kategori WHERE nama='$kategori'");
+    $queryGetKategoriId = mysqli_query($con, "SELECT id, bg FROM kategori WHERE nama='$kategori'");
 
     if ($queryGetKategoriId && mysqli_num_rows($queryGetKategoriId) > 0) {
-        $kategoriId = mysqli_fetch_array($queryGetKategoriId)['id'];
+        $kategoriData = mysqli_fetch_assoc($queryGetKategoriId);
+        $kategoriId = $kategoriData['id'];
+        $bg = $kategoriData['bg'];
+
 
         // Determine the sorting order
         if (isset($_GET['sort'])) {
@@ -73,8 +76,11 @@ if (isset($_GET['kategori'])) {
                                             JOIN ukuran ON produk.ukuran_id = ukuran.id 
                                             $sortQuery");
 
-    $queryProdukMenu = mysqli_query($con, "SELECT DISTINCT produk.kategori_id, produk.ukuran_id, ukuran.panjang, ukuran.lebar FROM produk 
-                                           JOIN ukuran ON produk.ukuran_id = ukuran.id");
+    // Fetch distinct categories and sizes for menu
+    $queryProdukMenu = mysqli_query($con, "SELECT DISTINCT produk.kategori_id, produk.ukuran_id, kategori.nama AS kategori_nama, ukuran.panjang, ukuran.lebar 
+                                           FROM produk 
+                                           JOIN ukuran ON produk.ukuran_id = ukuran.id
+                                           JOIN kategori ON produk.kategori_id = kategori.id");
 }
 ?>
 
@@ -124,7 +130,7 @@ if (isset($_GET['kategori'])) {
                         <a class="nav-link" href="../frjs/about-us.php#contact">Contact Us</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#"><i class="bi bi-bag"></i></a>
+                        <a class="nav-link" href="../frjs/about-us.php#hto"><i class="bi bi-bag"></i></a>
                     </li>
                 </ul>
             </div>
@@ -134,7 +140,7 @@ if (isset($_GET['kategori'])) {
     <!-- Header Image -->
     <div class="container mt-3">
         <div class="header-image">
-            <img src="../img/night court.jpg" class="img-fluid" alt="Header Image">
+            <img src="../img/<?php echo $bg; ?>" class="img-fluid" alt="Header Image">
         </div>
     </div>
 
