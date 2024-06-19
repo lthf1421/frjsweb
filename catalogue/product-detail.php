@@ -28,6 +28,8 @@ if (isset($_GET['id'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Product Detail</title>
     <!-- Bootstrap CSS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.0/font/bootstrap-icons.css" rel="stylesheet">
@@ -121,74 +123,29 @@ if (isset($_GET['id'])) {
             <div class="col-lg-6">
                 <!-- Main product image -->
                 <div class="main-product-image aspect-ratio-container">
-                    <a href="#" data-toggle="modal" data-target="#imageModal">
-                        <img src="../img/<?= $produk['foto']; ?>" id="main-product-image" class="img-fluid rounded-5" alt="Product Image">
-                    </a>
+                    <img src="../img/<?= $produk['foto']; ?>" id="main-product-image" class="img-fluid rounded-5" alt="Product Image">
                 </div>
 
                 <!-- Small box containers for pictures -->
                 <div class="row" id="small-images-container">
-                    <?php if (!empty($produk['foto'])) : ?>
-                        <div class="col-2">
-                            <div class="small-box-container">
-                                <a href="#">
-                                    <img src="../img/<?php echo $produk['foto']; ?>" id="image1" class="small-product-image" alt="Image 1">
-                                </a>
-
+                    <?php
+                    $foto_array = array($produk['foto'], $produk['foto1'], $produk['foto2'], $produk['foto3'], $produk['foto4'], $produk['foto5'], $produk['foto6'], $produk['foto7'], $produk['foto8'], $produk['foto9'], $produk['foto10'], $produk['foto11']);
+                    foreach ($foto_array as $key => $foto) :
+                        if (!empty($foto)) :
+                    ?>
+                            <div class="col-2">
+                                <div class="small-box-container">
+                                    <a href="#" class="small-image-link" data-index="<?= $key ?>">
+                                        <img src="../img/<?= $foto; ?>" class="small-product-image" alt="Small Image <?= $key + 1 ?>">
+                                    </a>
+                                </div>
                             </div>
-                        </div>
-                    <?php endif; ?>
-
-
-                    <?php if (!empty($produk['foto1'])) : ?>
-                        <div class="col-2">
-                            <div class="small-box-container">
-                                <a href="#">
-                                    <img src="../img/<?php echo $produk['foto1']; ?>" id="2" class="small-product-image" alt="Image 2">
-                                </a>
-                            </div>
-                        </div>
-                    <?php endif; ?>
-
-                    <?php if (!empty($produk['foto2'])) : ?>
-                        <div class="col-2">
-                            <div class="small-box-container">
-                                <a href="#">
-                                    <img src="../img/<?php echo $produk['foto2']; ?>" id="3" class="small-product-image" alt="Image 3">
-                                </a>
-                            </div>
-                        </div>
-                    <?php endif; ?>
-
-                    <?php if (!empty($produk['foto3'])) : ?>
-                        <div class="col-2">
-                            <div class="small-box-container">
-                                <a href="#">
-                                    <img src="../img/<?php echo $produk['foto3']; ?>" id="4" class="small-product-image" alt="Image 4">
-                                </a>
-                            </div>
-                        </div>
-                    <?php endif; ?>
-
-                    <?php if (!empty($produk['foto4'])) : ?>
-                        <div class="col-2">
-                            <div class="small-box-container">
-                                <a href="#">
-                                    <img src="../img/<?php echo $produk['foto4']; ?>" id="5" class="small-product-image rounded-5" alt="Image 5">
-                                </a>
-                            </div>
-                        </div>
-                    <?php endif; ?>
-                    <?php if (!empty($produk['foto4'])) : ?>
-                        <div class="col-2">
-                            <div class="small-box-container">
-                                <a href="#">
-                                    <img src="../img/<?php echo $produk['foto4']; ?>" id="5" class="small-product-image rounded-5" alt="Image 5">
-                                </a>
-                            </div>
-                        </div>
-                    <?php endif; ?>
+                    <?php
+                        endif;
+                    endforeach;
+                    ?>
                 </div>
+
 
             </div>
 
@@ -198,7 +155,9 @@ if (isset($_GET['id'])) {
                     <h1 class="display-4"><?php echo $produk['nama']; ?></h1>
                     <p class="lead">Rp. <?php echo number_format($produk['harga'], 0, '.', ','); ?></p>
                     <p class="text-muted"><?php echo $produk['panjang'] . ' cm x ' . $produk['lebar'] . ' cm'; ?></p>
-                    <a href="#" class="btn btn-primary">Order Now</a>
+                    <a href="
+                    https://wa.me/6287838137197?text=Halo%2C%20admin.%0ASaya%20ingin%20memesan%20produk%20<?php echo $produk['nama']; ?>
+                    " class="btn btn-primary">Pre Order</a>
                     <!-- WhatsApp share icon -->
 
                     <style>
@@ -252,8 +211,8 @@ if (isset($_GET['id'])) {
             <!-- Footer -->
             <footer class="text-white text-center text-lg-start mt-5">
                 <div class="container d-flex justify-content-between align-items-center py-3">
-                    <a href="#" class="text-white">Contact Us</a>
-                    <span>© 2024 Your Company</span>
+                    <a href="#" class="text-white">About Us</a>
+                    <span>© 2024 FRJS Scoreboard & LED</span>
                     <div>
                         <a href="#" class="text-white mr-2">
                             <i class="bi bi-instagram"></i>
