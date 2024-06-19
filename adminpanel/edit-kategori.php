@@ -166,10 +166,10 @@ function generateRandomString($length = 10)
                                 $random_name = generateRandomString(20);
                                 $new_name = $random_name . "." . $imageFileType;
 
-                                if ($image_size > 10000000) {
+                                if ($image_size > 15000000) {
                         ?>
                                     <div class="alert alert-warning mt-3" role="alert">
-                                        File tidak boleh lebih dari 10 mb
+                                        File tidak boleh lebih dari 15 mb
                                     </div>
                                 <?php
                                 } elseif (!in_array($imageFileType, ['jpg', 'png', 'gif'])) {
