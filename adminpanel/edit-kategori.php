@@ -129,8 +129,8 @@ function generateRandomString($length = 10)
                     </a>
                 </li>
                 <li class="breadcrumb-item active" aria-current="page">
-                    <a href="../adminpanel/produk.php" class="no-decoration text-muted">
-                        Produk
+                    <a href="../adminpanel/kategori.php" class="no-decoration text-muted">
+                        Kategori
                     </a>
                 </li>
                 <li class="breadcrumb-item active aria-current-page">
@@ -251,7 +251,7 @@ function generateRandomString($length = 10)
                                 <div class="input-group">
                                     <input type="file" name="bg" id="bg" class="form-control">
                                     <div class="input-group-append">
-                                        <button class="btn btn-outline-danger delete-btn" type="button" style="display:none; background-color:chocolate;">Undo</button>
+                                        <button class="btn btn-outline-danger delete-btn" type="button" style="display:none; background-color:darkkhaki; color:white;">Undo</button>
                                     </div>
                                 </div>
                             </div>
