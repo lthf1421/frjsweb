@@ -26,7 +26,7 @@ function generateRandomString($length = 10)
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Produk</title>
+    <title>Ukuran</title>
     <script src="https://kit.fontawesome.com/296a2adfbf.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
@@ -47,7 +47,7 @@ function generateRandomString($length = 10)
                     </a>
                 </li>
                 <li class="breadcrumb-item active aria-current-page">
-                    Kategori
+                    Ukuran
                 </li>
             </ol>
         </nav>
