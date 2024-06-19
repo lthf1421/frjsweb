@@ -254,6 +254,7 @@ function generateRandomString($length = 10)
                                         <button class="btn btn-outline-danger delete-btn" type="button" style="display:none; background-color:darkkhaki; color:white;">Undo</button>
                                     </div>
                                 </div>
+                                <p class="text-muted"> *Note : Kunjungi <a href="https://www.unsplash.com" target="_blank">Unsplash.com </a> untuk browsing gambar HD free.</p>
                             </div>
                             <button type="submit" class="btn btn-primary mt-3" name="simpan">Simpan</button>
                             <button type="submit" class="btn btn-danger mt-3" name="hapus">Hapus</button>
