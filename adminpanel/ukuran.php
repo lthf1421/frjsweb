@@ -56,6 +56,11 @@ function generateRandomString($length = 10)
                 <i class="fas fa-long-arrow-alt-left"></i> Kembali
             </div>
         </a>
+        <a href="../adminpanel/tambah-ukuran.php" class="no-decoration text-white">
+            <div class="btn btn-success mb-3">
+                <i class="fa-regular fa-square-plus"></i> Tambah Ukuran Baru
+            </div>
+        </a>
         <h2>List Ukuran</h2>
         <div class="table-responsive mt-5">
             <table class="table">
@@ -64,6 +69,7 @@ function generateRandomString($length = 10)
                         <th>No. </th>
                         <th>Panjang</th>
                         <th>Lebar</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -73,7 +79,7 @@ function generateRandomString($length = 10)
                         if ($jumlahUkuran == 0) {
                     ?>
                             <tr>
-                                <td>Tidak ada data kategori</td>
+                                <td>Tidak ada data Ukuran</td>
                             </tr>
                         <?php
                         } else {
@@ -82,6 +88,10 @@ function generateRandomString($length = 10)
                                 <td><?php echo $number; ?></td>
                                 <td><?php echo $data['panjang']; ?> cm</td>
                                 <td><?php echo $data['lebar']; ?> cm</td>
+                                <td>
+                                    <a href="edit-ukuran.php?p=<?php echo $data['id']; ?>" class="btn btn-info"><i class="fas fa-pen" title="Edit"></i>
+                                    </a>
+                                </td>
 
                             </tr>
                     <?php
