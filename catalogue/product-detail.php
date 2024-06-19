@@ -64,7 +64,7 @@ if (isset($_GET['id'])) {
                         <a class="nav-link" href="../index.php">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/frjs/about-us.php#contact">Contact Us</a>
+                        <a class="nav-link" href="../frjs/about-us.php#contact">Contact Us</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#"><i class="bi bi-bag"></i></a>
@@ -198,7 +198,7 @@ if (isset($_GET['id'])) {
                             text-decoration: none;
                         }
                     </style>
-                    <a href="whatsapp://send?text=<?php echo urlencode('Check out this product: ' . $produk['nama'] . ' - Rp. ' . $produk['harga']); ?>" class="whatsapp-share-button">
+                    <a href="https://api.whatsapp.com/send?text=Lihat%20produk%20ini%20deh,%20mungkin%20tertarik%20www.frjs.id/catalogue/product-detail.php?id=<?= $produk['id']; ?>" class="whatsapp-share-button">
                         <i class="fa-solid fa-share"></i>
                         <i class="bi bi-whatsapp"></i>
                     </a>
@@ -211,13 +211,13 @@ if (isset($_GET['id'])) {
             <!-- Footer -->
             <footer class="text-white text-center text-lg-start mt-5">
                 <div class="container d-flex justify-content-between align-items-center py-3">
-                    <a href="/frjs/about-us.php" class="text-white">About Us</a>
+                    <a href="../frjs/about-us.php#garansi" class="text-white">Kebijakan Garansi</a>
                     <span>© 2024 FRJS Scoreboard & LED</span>
                     <div>
                         <a href="#" class="text-white mr-2">
                             <i class="bi bi-instagram"></i>
                         </a>
-                        <a href="#" class="text-white">
+                        <a href="https://wa.me/6287838137197?text=Halo%2C%20admin%20FRJS" class="text-white">
                             <i class="bi bi-whatsapp"></i>
                         </a>
                     </div>
