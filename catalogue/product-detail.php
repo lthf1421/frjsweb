@@ -211,7 +211,7 @@ if (isset($_GET['id'])) {
             <!-- Footer -->
             <footer class="text-white text-center text-lg-start mt-5">
                 <div class="container d-flex justify-content-between align-items-center py-3">
-                    <a href="#" class="text-white">About Us</a>
+                    <a href="/frjs/about-us.php" class="text-white">About Us</a>
                     <span>© 2024 FRJS Scoreboard & LED</span>
                     <div>
                         <a href="#" class="text-white mr-2">
