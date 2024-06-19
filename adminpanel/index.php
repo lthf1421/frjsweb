@@ -70,7 +70,7 @@ function generateRandomString($length = 10)
             </ol>
         </nav>
         <h2>
-            Halo, admin
+            Halo, admin.
         </h2>
         <div class="container mt-5">
             <div class="row">
