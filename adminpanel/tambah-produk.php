@@ -24,7 +24,7 @@ function generateRandomString($length = 10)
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Produk</title>
+    <title>Tambah Produk</title>
     <script src="https://kit.fontawesome.com/296a2adfbf.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
@@ -327,7 +327,7 @@ function generateRandomString($length = 10)
                                 <div class="input-group">
                                     <input type="file" name="foto" id="foto" class="form-control" required>
                                     <div class="input-group-append">
-                                        <button class="btn btn-outline-danger delete-btn" type="button" style="display:none;">Delete</button>
+                                        <button class="btn btn-outline-danger delete-btn" type="button" style="display:none; background-color:chocolate;">Undo</button>
                                     </div>
                                 </div>
                             </div>
@@ -337,7 +337,7 @@ function generateRandomString($length = 10)
                                 <div class="input-group">
                                     <input type="file" name="fotoalt1" id="fotoalt1" class="form-control">
                                     <div class="input-group-append">
-                                        <button class="btn btn-outline-danger delete-btn" type="button" style="display:none;">Delete</button>
+                                        <button class="btn btn-outline-danger delete-btn" type="button" style="display:none; background-color:chocolate;">Undo</button>
                                     </div>
                                 </div>
                             </div>
@@ -347,7 +347,7 @@ function generateRandomString($length = 10)
                                 <div class="input-group">
                                     <input type="file" name="fotoalt2" id="fotoalt2" class="form-control">
                                     <div class="input-group-append">
-                                        <button class="btn btn-outline-danger delete-btn" type="button" style="display:none;">Delete</button>
+                                        <button class="btn btn-outline-danger delete-btn" type="button" style="display:none; background-color:chocolate;">Undo</button>
                                     </div>
                                 </div>
                             </div>
@@ -357,7 +357,7 @@ function generateRandomString($length = 10)
                                 <div class="input-group">
                                     <input type="file" name="fotoalt3" id="fotoalt3" class="form-control">
                                     <div class="input-group-append">
-                                        <button class="btn btn-outline-danger delete-btn" type="button" style="display:none;">Delete</button>
+                                        <button class="btn btn-outline-danger delete-btn" type="button" style="display:none; background-color:chocolate;">Undo</button>
                                     </div>
                                 </div>
                             </div>
@@ -367,7 +367,7 @@ function generateRandomString($length = 10)
                                 <div class="input-group">
                                     <input type="file" name="fotoalt4" id="fotoalt4" class="form-control">
                                     <div class="input-group-append">
-                                        <button class="btn btn-outline-danger delete-btn" type="button" style="display:none;">Delete</button>
+                                        <button class="btn btn-outline-danger delete-btn" type="button" style="display:none;  background-color:chocolate;">Undo</button>
                                     </div>
                                 </div>
                             </div>
