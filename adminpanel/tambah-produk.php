@@ -209,10 +209,9 @@ function generateRandomString($length = 10)
                             $fotoalt1 = '';
                             $fotoalt2 = '';
                             $fotoalt3 = '';
-                            $fotoalt4 = '';
 
                             // Handle each additional photo
-                            for ($i = 1; $i <= 4; $i++) {
+                            for ($i = 1; $i <= 3; $i++) {
                                 $fotoalt_name = "fotoalt{$i}";
                                 if ($_FILES[$fotoalt_name]["error"] == UPLOAD_ERR_OK) {
                                     $nama_file_alt = basename($_FILES[$fotoalt_name]["name"]);
@@ -261,8 +260,8 @@ function generateRandomString($length = 10)
                             // Insert into database only if main photo upload was successful
                             if ($nama_file != '' && $image_size <= 50000000 && in_array($imageFileType, ['jpg', 'png', 'jpeg'])) {
                                 // Insert into database
-                                $queryTambah = mysqli_query($con, "INSERT INTO produk (kategori_id, ukuran_id, nama, harga, foto, foto1, foto2, foto3, foto4, detail, ketersediaan_stok)
-            VALUES ('$kategori', '$ukuran', '$nama', '$harga', '$new_name', '$fotoalt1', '$fotoalt2', '$fotoalt3', '$fotoalt4', '$detail', '$ketersediaan_stok')");
+                                $queryTambah = mysqli_query($con, "INSERT INTO produk (kategori_id, ukuran_id, nama, harga, foto, foto1, foto2, foto3, detail, ketersediaan_stok)
+            VALUES ('$kategori', '$ukuran', '$nama', '$harga', '$new_name', '$fotoalt1', '$fotoalt2', '$fotoalt3', '$detail', '$ketersediaan_stok')");
 
                                 if ($queryTambah) {
                                     ?>
@@ -293,7 +292,7 @@ function generateRandomString($length = 10)
                         <form action="" method="post" enctype="multipart/form-data">
                             <div class="form-group">
                                 <label for="nama">Nama</label>
-                                <input type="text" id="nama" name="nama" class="form-control" autocomplete="off" placeholder="SB99C" required>
+                                <input type="text" id="nama" name="nama" class="form-control" autocomplete="off" placeholder="contoh : SB99C" required>
                             </div>
 
                             <div class="form-group">
@@ -318,7 +317,7 @@ function generateRandomString($length = 10)
 
                             <div class="form-group">
                                 <label for="harga">Harga <span class="text-muted text-small">*isi hanya dengan angka, hindari koma / titik</span></label>
-                                <input type="number" id="harga" name="harga" class="form-control" autocomplete="off" placeholder="999999" required>
+                                <input type="number" id="harga" name="harga" class="form-control" autocomplete="off" placeholder="contoh : 999999" required>
                             </div>
 
                             <!-- File Upload Section -->
@@ -358,16 +357,6 @@ function generateRandomString($length = 10)
                                     <input type="file" name="fotoalt3" id="fotoalt3" class="form-control">
                                     <div class="input-group-append">
                                         <button class="btn btn-outline-danger delete-btn" type="button" style="display:none; background-color:chocolate;">Undo</button>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="file-upload mb-4" id="file-upload-5">
-                                <label for="fotoalt4">Foto Alternatif 4</label>
-                                <div class="input-group">
-                                    <input type="file" name="fotoalt4" id="fotoalt4" class="form-control">
-                                    <div class="input-group-append">
-                                        <button class="btn btn-outline-danger delete-btn" type="button" style="display:none;  background-color:chocolate;">Undo</button>
                                     </div>
                                 </div>
                             </div>
