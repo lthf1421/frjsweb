@@ -316,7 +316,7 @@ if (isset($_GET['kategori'])) {
                 <a href="#" class="text-white mr-2">
                     <i class="bi bi-instagram"></i>
                 </a>
-                <a href="https://wa.me/6287838137197?text=Halo%2C%20admin%20frjs" class="text-white">
+                <a href="https://wa.me/6287838137197?text=Halo%2C%20admin%20FRJS." class="text-white" target="_blank">
                     <i class="bi bi-whatsapp"></i>
                 </a>
             </div>
