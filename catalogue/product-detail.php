@@ -264,7 +264,7 @@ WHERE produk.id = '$productId';
                     <p style="font-style: italic;"><?php echo trim($ketersediaan_stok == 'pre-order' ? 'Pre Order' : 'Ready Stock'); ?></p>
                     <a href="
                     https://wa.me/6287838137197?text=Halo%2C%20admin.%0ASaya%20ingin%20memesan%20produk%20<?php echo $produk['nama']; ?>
-                    " class="btn btn-primary">Order Sekarang</a>
+                    " class="btn btn-primary" target="_blank">Order Sekarang</a>
                     <!-- WhatsApp share icon -->
 
                     <style>
@@ -305,7 +305,7 @@ WHERE produk.id = '$productId';
                             text-decoration: none;
                         }
                     </style>
-                    <a href="https://api.whatsapp.com/send?text=Lihat%20produk%20ini%20deh,%20mungkin%20tertarik%20www.frjs.id/catalogue/product-detail.php?id=<?= $produk['id']; ?>" class="whatsapp-share-button">
+                    <a href="https://api.whatsapp.com/send?text=Lihat%20produk%20<?php echo $produk['nama']; ?>%20ini%20deh,%20mungkin%20tertarik%20www.frjs.id/catalogue/product-detail.php?id=<?= $produk['id']; ?>" target="_blank" class="whatsapp-share-button">
                         <i class="fa-solid fa-share"></i>
                         <i class="bi bi-whatsapp"></i>
                     </a>
