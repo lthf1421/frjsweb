@@ -7,16 +7,18 @@ $queryUkuran = mysqli_query($con, "SELECT * FROM ukuran");
 
 // Initialize variables
 $bg = ''; // Initialize $bg variable to store background image path
+$nama = ''; // Initialize $nama variable to store background image path
 
 // Handle the selected category and size
 if (isset($_GET['kategori'])) {
     $kategori = mysqli_real_escape_string($con, $_GET['kategori']); // Sanitize input
-    $queryGetKategoriId = mysqli_query($con, "SELECT id, bg FROM kategori WHERE nama='$kategori'");
+    $queryGetKategoriId = mysqli_query($con, "SELECT id, bg, nama FROM kategori WHERE nama='$kategori'");
 
     if ($queryGetKategoriId && mysqli_num_rows($queryGetKategoriId) > 0) {
         $kategoriData = mysqli_fetch_assoc($queryGetKategoriId);
         $kategoriId = $kategoriData['id'];
         $bg = $kategoriData['bg'];
+        $nama = $kategoriData['nama'];
 
 
         // Determine the sorting order
@@ -92,7 +94,9 @@ if (isset($_GET['kategori'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Product Catalogue</title>
+    <title>Product Catalogue for <?= $nama ?></title>
+    <!-- FontAwesome -->
+    <script src="https://kit.fontawesome.com/296a2adfbf.js" crossorigin="anonymous"></script>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
@@ -135,6 +139,67 @@ if (isset($_GET['kategori'])) {
                 </ul>
             </div>
         </div>
+    </nav>
+
+    <style>
+        /* Style for the breadcrumb navigation */
+        .breadcrumb {
+            background-color: transparent;
+            /* Background color */
+            padding: 5px 10px;
+            /* Padding between items (top and bottom) */
+            margin-bottom: 10px;
+            /* Margin bottom for the entire breadcrumb */
+        }
+
+        /* Style for breadcrumb items */
+        .breadcrumb-item {
+            display: inline-block;
+            /* Display items in a line */
+            margin-right: 5px;
+            /* Spacing between items */
+        }
+
+        /* Style for active breadcrumb item */
+        .breadcrumb-item.active {
+            color: #fff;
+            /* Active item text color */
+            font-weight: 400;
+            /* Bold text for active item */
+        }
+
+        /* Style for links inside breadcrumb items */
+        .breadcrumb-item a {
+            color: #ccc;
+            /* Link text color */
+            text-decoration: none;
+            /* Remove underline */
+            margin-right: 5px;
+        }
+
+        /* Style for home icon */
+        .breadcrumb-item a i {
+            margin-right: 10px;
+            /* Spacing between icon and text */
+            color: #ccc;
+            /* Icon color */
+        }
+    </style>
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb navbar-dark transparent-navbar">
+            <div class="container">
+                <li class="breadcrumb-item active" aria-current="page">
+                    <a href="../index.php" class="no-decoration text-muted">
+                        <i class="fas fa-home"></i>
+                        Home
+                    </a>
+                </li>
+                <li class="breadcrumb-item active aria-current-page">
+                    <?= $nama ?>
+                </li>
+            </div>
+        </ol>
     </nav>
 
     <!-- Header Image -->
