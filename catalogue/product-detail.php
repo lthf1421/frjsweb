@@ -3,9 +3,12 @@ require "../koneksi.php";
 
 if (isset($_GET['id'])) {
     $productId = $_GET['id'];
-    $queryProdukDetail = mysqli_query($con, "SELECT produk.*, ukuran.panjang, ukuran.lebar FROM produk 
-                                             JOIN ukuran ON produk.ukuran_id = ukuran.id 
-                                             WHERE produk.id='$productId'");
+    $queryProdukDetail = mysqli_query($con, "SELECT produk.*, ukuran.panjang, ukuran.lebar, kategori.nama AS nama_kategori 
+FROM produk 
+JOIN ukuran ON produk.ukuran_id = ukuran.id 
+JOIN kategori ON produk.kategori_id = kategori.id
+WHERE produk.id = '$productId';
+");
     $produk = mysqli_fetch_assoc($queryProdukDetail);
 
     if (!$produk) {
@@ -83,6 +86,72 @@ if (isset($_GET['id'])) {
         </div>
     </nav>
 
+    <style>
+        /* Style for the breadcrumb navigation */
+        .breadcrumb {
+            background-color: transparent;
+            /* Background color */
+            padding: 5px 10px;
+            /* Padding between items (top and bottom) */
+            margin-bottom: 10px;
+            /* Margin bottom for the entire breadcrumb */
+        }
+
+        /* Style for breadcrumb items */
+        .breadcrumb-item {
+            display: inline-block;
+            /* Display items in a line */
+            margin-right: 5px;
+            /* Spacing between items */
+        }
+
+        /* Style for active breadcrumb item */
+        .breadcrumb-item.active {
+            color: #fff;
+            /* Active item text color */
+            font-weight: 400;
+            /* Bold text for active item */
+        }
+
+        /* Style for links inside breadcrumb items */
+        .breadcrumb-item a {
+            color: #ccc;
+            /* Link text color */
+            text-decoration: none;
+            /* Remove underline */
+            margin-right: 5px;
+        }
+
+        /* Style for home icon */
+        .breadcrumb-item a i {
+            margin-right: 10px;
+            /* Spacing between icon and text */
+            color: #ccc;
+            /* Icon color */
+        }
+    </style>
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb navbar-dark transparent-navbar">
+            <div class="container">
+                <li class="breadcrumb-item active" aria-current="page">
+                    <a href="../index.php" class="no-decoration text-muted">
+                        <i class="fas fa-home"></i>
+                        Home
+                    </a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">
+                    <a href="../catalogue/index.php?kategori=<?= $produk['nama_kategori']; ?>" class="no-decoration text-muted">
+                        <?= $produk['nama_kategori']; ?>
+                    </a>
+                </li>
+                <li class="breadcrumb-item active aria-current-page">
+                    <?= $produk['nama']; ?>
+                </li>
+            </div>
+        </ol>
+    </nav>
+
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -124,6 +193,34 @@ if (isset($_GET['id'])) {
             min-height: 420px;
             max-height: 420px;
             /* Adjust maximum height to control size */
+        }
+
+        /* Styles for smaller screens */
+        @media (max-width: 768px) {
+            .main-product-image img {
+                min-height: 375px;
+                /* Minimum height */
+                max-height: 375px;
+                /* Maximum height */
+            }
+        }
+
+        @media (max-width: 1199px) {
+            .main-product-image img {
+                min-height: 370px;
+                /* Minimum height */
+                max-height: 370px;
+                /* Maximum height */
+            }
+        }
+
+        @media (min-width: 1200px) {
+            .main-product-image img {
+                min-height: 430px;
+                /* Minimum height */
+                max-height: 430px;
+                /* Maximum height */
+            }
         }
     </style>
 
