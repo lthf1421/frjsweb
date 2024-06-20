@@ -324,7 +324,7 @@ $queryKategori = mysqli_query($con, "SELECT * FROM kategori");
                     </div>
                     <!-- WhatsApp -->
                     <div class="social">
-                        <a href="https://wa.me/6287838137197?text=Halo%2C%20admin%20FRJS." class="text-white" target="_blank">
+                        <a href="https://wa.me/6287838137197?text=Halo%2C%20admin%20FRJS." class="social-wa" target="_blank">
                             <i class="bi bi-whatsapp"></i><span>+6287838137197</span>
                         </a>
                     </div>
