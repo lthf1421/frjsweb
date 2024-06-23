@@ -186,11 +186,11 @@ function generateRandomString($length = 10)
                         <form action="" method="post" enctype="multipart/form-data">
                             <div class="form-group">
                                 <label for="panjang">Panjang (cm)</label>
-                                <input type="text" id="panjang" name="panjang" class="form-control" autocomplete="off">
+                                <input type="double" id="panjang" name="panjang" class="form-control" autocomplete="off">
                             </div>
                             <div class="form-group">
                                 <label for="lebar">Lebar (cm)</label>
-                                <input type="text" id="panjang" name="lebar" class="form-control" autocomplete="off">
+                                <input type="double" id="panjang" name="lebar" class="form-control" autocomplete="off">
                             </div>
                             <button type="submit" class="btn btn-primary mt-3" name="simpan">Simpan</button>
                         </form>
