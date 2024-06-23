@@ -163,25 +163,72 @@ $data = mysqli_fetch_array($queryUkuran);
                                         Ukuran berhasil diupdate
                                     </div>
                                     <meta http-equiv="refresh" content="2; url=ukuran.php" />
-                        <?php
+                                <?php
                                 } else {
                                     echo mysqli_error($con);
                                 }
                             }
                         }
-                        ?>
 
+                        // Check if form is submitted for deletion
+                        if (isset($_POST['hapus'])) {
+                            // Include your database connection script
+
+                            // Sanitize and validate $id
+                            $id = mysqli_real_escape_string($con, $_GET['p']);
+
+                            // Attempt to execute delete query
+                            try {
+                                $queryHapus = mysqli_query($con, "DELETE FROM ukuran WHERE id='$id'");
+
+                                if ($queryHapus) {
+                                ?>
+                                    <div class="alert alert-success mt-3" role="alert">
+                                        Ukuran berhasil dihapus
+                                    </div>
+                                    <meta http-equiv="refresh" content="2; url=ukuran.php" />
+                                <?php
+                                } else {
+                                ?>
+                                    <div class="alert alert-danger mt-3" role="alert">
+                                        Terjadi kesalahan saat menghapus Ukuran.
+                                    </div>
+                                <?php
+                                }
+                            } catch (mysqli_sql_exception $e) {
+                                // Catch foreign key constraint violation
+                                ?>
+                                <div class="alert alert-danger mt-3" role="alert">
+                                    Gagal menghapus ukuran karena terdapat keterkaitan dengan data lain.
+                                    Silahkan hapus terlebih dahulu produk yang menggunakan ukuran ini.
+                                </div>
+                            <?php
+                                // You can log the actual error for debugging purposes if needed
+                                // error_log($e->getMessage());
+                            } catch (Exception $e) {
+                                // Catch any other exceptions not related to mysqli_sql_exception
+                            ?>
+                                <div class="alert alert-danger mt-3" role="alert">
+                                    Terjadi kesalahan saat menghapus Ukuran: <?php echo $e->getMessage(); ?>
+                                </div>
+                        <?php
+                            }
+                        }
+                        ?>
 
                         <form action="" method="post" enctype="multipart/form-data">
                             <div class="form-group">
                                 <label for="panjang">Panjang (cm)</label>
-                                <input type="text" value="<?= $data['panjang']; ?>" id="panjang" name="panjang" class="form-control" autocomplete="off">
+                                <input type="double" value="<?= $data['panjang']; ?>" id="panjang" name="panjang" class="form-control" autocomplete="off">
                             </div>
                             <div class="form-group">
                                 <label for="lebar">Lebar (cm)</label>
-                                <input type="text" value="<?= $data['lebar']; ?>" id="panjang" name="lebar" class="form-control" autocomplete="off">
+                                <input type="double" value="<?= $data['lebar']; ?>" id="panjang" name="lebar" class="form-control" autocomplete="off">
                             </div>
-                            <button type="submit" class="btn btn-primary mt-3" name="simpan">Simpan</button>
+                            <div class="d-flex justify-content-between">
+                                <button type="submit" class="btn btn-primary mt-3" name="simpan">Simpan</button>
+                                <button type="submit" class="btn btn-danger mt-3" name="hapus">Hapus</button>
+                            </div>
                         </form>
                     </div>
                 </div>
