@@ -202,7 +202,7 @@ function generateRandomString($length = 10)
                                     Kategori berhasil diupdate
                                 </div>
                                 <meta http-equiv="refresh" content="2; url=kategori.php" />
-                            <?php
+                                <?php
                             } else {
                                 echo mysqli_error($con);
                             }
@@ -212,24 +212,44 @@ function generateRandomString($length = 10)
 
                         // Check if form is submitted for deletion
                         if (isset($_POST['hapus'])) {
+                            // Include your database connection script
+
                             // Sanitize and validate $id
                             $id = mysqli_real_escape_string($con, $_GET['p']);
 
-                            // Execute delete query
-                            $queryHapus = mysqli_query($con, "DELETE FROM kategori WHERE id='$id'");
+                            // Attempt to execute delete query
+                            try {
+                                $queryHapus = mysqli_query($con, "DELETE FROM kategori WHERE id='$id'");
 
-                            if ($queryHapus) {
-                            ?>
-                                <div class="alert alert-success mt-3" role="alert">
-                                    Produk berhasil dihapus
+                                if ($queryHapus) {
+                                ?>
+                                    <div class="alert alert-success mt-3" role="alert">
+                                        Kategori berhasil dihapus
+                                    </div>
+                                    <meta http-equiv="refresh" content="2; url=kategori.php" />
+                                <?php
+                                } else {
+                                ?>
+                                    <div class="alert alert-danger mt-3" role="alert">
+                                        Terjadi kesalahan saat menghapus kategori.
+                                    </div>
+                                <?php
+                                }
+                            } catch (mysqli_sql_exception $e) {
+                                // Catch foreign key constraint violation
+                                ?>
+                                <div class="alert alert-danger mt-3" role="alert">
+                                    Gagal menghapus kategori karena terdapat keterkaitan dengan data lain.
+                                    Silahkan hapus terlebih dahulu produk yang menggunakan kategori ini.
                                 </div>
-                                <meta http-equiv="refresh" content="2; url=kategori.php" />
                             <?php
-                            } else {
-                                // Handle deletion error
+                                // You can log the actual error for debugging purposes if needed
+                                // error_log($e->getMessage());
+                            } catch (Exception $e) {
+                                // Catch any other exceptions not related to mysqli_sql_exception
                             ?>
                                 <div class="alert alert-danger mt-3" role="alert">
-                                    Terjadi kesalahan saat menghapus produk.
+                                    Terjadi kesalahan saat menghapus Kategori: <?php echo $e->getMessage(); ?>
                                 </div>
                         <?php
                             }
@@ -256,8 +276,10 @@ function generateRandomString($length = 10)
                                 </div>
                                 <p class="text-muted"> *Note : Kunjungi <a href="https://www.unsplash.com" target="_blank">Unsplash.com </a> untuk browsing gambar HD free.</p>
                             </div>
-                            <button type="submit" class="btn btn-primary mt-3" name="simpan">Simpan</button>
-                            <button type="submit" class="btn btn-danger mt-3" name="hapus">Hapus</button>
+                            <div class="d-flex justify-content-between">
+                                <button type="submit" class="btn btn-primary mt-3" name="simpan">Simpan</button>
+                                <button type="submit" class="btn btn-danger mt-3" name="hapus">Hapus</button>
+                            </div>
                         </form>
                     </div>
                 </div>
