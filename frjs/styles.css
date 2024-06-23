@@ -1,6 +1,6 @@
 body {
     font-family: "Kanit", sans-serif;
-    background-color: #2b2a46;
+    background-color: #39385c;
     color: white;
     display: flex;
     flex-direction: column;
@@ -9,13 +9,14 @@ body {
 
 html {
     scroll-behavior: smooth;
-  }
-  
+}
+
 
 .transparent-navbar {
     background-color: transparent !important;
     border: none !important;
 }
+
 /* Custom navbar padding and margin */
 .custom-navbar {
     padding: 10px 10px;
@@ -65,26 +66,12 @@ html {
     /* Add margin between nav items */
 }
 
-
-.header-image {
-    width: 100%;
-    max-width: 1300px;
-    height: 200px;
-    margin: 0 auto;
-    overflow: hidden;
-    border-radius: 20px;
-}
-
-.header-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
 .aspect-ratio-container {
     position: relative;
-    width: 100%; /* Adjust width as needed */
-    padding-top: 85%; /* This creates a 4:3 aspect ratio (75% = 3/4 * 100) */
+    width: 100%;
+    /* Adjust width as needed */
+    padding-top: 85%;
+    /* This creates a 4:3 aspect ratio (75% = 3/4 * 100) */
     overflow: hidden;
 }
 
@@ -94,7 +81,8 @@ html {
     left: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover; /* Ensures the image covers the container while maintaining aspect ratio */
+    object-fit: cover;
+    /* Ensures the image covers the container while maintaining aspect ratio */
 }
 
 
@@ -103,7 +91,7 @@ html {
     color: #f8f9fa;
 }
 
-.product-card:hover{
+.product-card:hover {
     background-color: #4b545e;
     transform: scale(1.05);
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.185);
@@ -126,8 +114,10 @@ html {
     object-fit: cover;
     transform: translate(-50%, -50%);
 }
+
 .dropdown-item:hover {
-    background-color: #30d459 !important; /* Green color on hover */
+    background-color: #30d459 !important;
+    /* Green color on hover */
 }
 
 .img-fluid {
@@ -171,31 +161,43 @@ footer a {
 .btn-primary {
     margin-top: 1px;
     margin-bottom: 10px;
-    width: 200px; /* Adjust width as needed */
-    min-width: 10px; /* Set a minimum width for consistency */
-    background-color: transparent !important; /* Set button background to transparent */
-    border: 1px solid white; /* Set white border */
-    color: white; /* Text color */
+    width: 200px;
+    /* Adjust width as needed */
+    min-width: 10px;
+    /* Set a minimum width for consistency */
+    background-color: transparent !important;
+    /* Set button background to transparent */
+    border: 1px solid white;
+    /* Set white border */
+    color: white;
+    /* Text color */
 }
 
 .btn-primary:hover {
-    background-color: rgba(255, 255, 255, 0.1); /* Light transparent background on hover */
-    border: 1px solid white; /* Set white border */
+    background-color: rgba(255, 255, 255, 0.1);
+    /* Light transparent background on hover */
+    border: 1px solid white;
+    /* Set white border */
 }
 
 .btn-primary:focus {
-    box-shadow: none; /* Remove the default blue shadow on focus */
+    box-shadow: none;
+    /* Remove the default blue shadow on focus */
 }
 
 .small-box-container {
     display: inline-block;
-    padding-right: 12px; /* Adjust padding as needed */
+    padding-right: 12px;
+    /* Adjust padding as needed */
     padding-bottom: 15px;
     overflow: hidden;
     position: relative;
-    width: 80px; /* Fixed width for each small box */
-    height: 90px; /* Fixed height for each small box */
-    border-radius: 5px; /* Rounded corners */
+    width: 80px;
+    /* Fixed width for each small box */
+    height: 90px;
+    /* Fixed height for each small box */
+    border-radius: 5px;
+    /* Rounded corners */
 }
 
 .small-image-container {
@@ -203,20 +205,26 @@ footer a {
 }
 
 .small-box-container img {
-    border: 2px solid #fff; /* White bold border */
+    border: 2px solid #fff;
+    /* White bold border */
     box-shadow: #95a2af;
     width: 100%;
     height: 100%;
-    object-fit: cover; /* Cover the container with the image */
-    border-radius: 5px; /* Inherit rounded corners from parent */
+    object-fit: cover;
+    /* Cover the container with the image */
+    border-radius: 5px;
+    /* Inherit rounded corners from parent */
 }
 
 .img-square {
-    width: 100%; /* Ensure image fills container width */
-    position: absolute; /* Position the image absolutely */
+    width: 100%;
+    /* Ensure image fills container width */
+    position: absolute;
+    /* Position the image absolutely */
     top: 0;
     left: 0;
-    object-fit: cover; /* Cover the container with image */
+    object-fit: cover;
+    /* Cover the container with image */
 }
 
 
