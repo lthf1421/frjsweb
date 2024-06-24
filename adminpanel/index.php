@@ -37,17 +37,17 @@ function generateRandomString($length = 10)
 
 <style>
     .summary-produk {
-        background-color: #9eb99b;
+        background-color: #7FB88D;
         border-radius: 15px;
     }
 
     .summary-kategori {
-        background-color: #DCDF77;
+        background-color: #DED439;
         border-radius: 15px;
     }
 
     .summary-ukuran {
-        background-color: #A5B4C3;
+        background-color: #627FD3;
         border-radius: 15px;
     }
 
@@ -75,7 +75,7 @@ function generateRandomString($length = 10)
         <div class="container mt-5">
             <div class="row">
                 <div class="col-lg-4">
-                    <div class="summary-produk p-3">
+                    <div class="summary-produk p-3 mb-3">
                         <div class="row">
                             <div class="col-6">
                                 <i class="fa fa-box fa-7x text-black-50"></i>
@@ -90,7 +90,7 @@ function generateRandomString($length = 10)
                     </div>
                 </div>
                 <div class="col-lg-4">
-                    <div class="summary-kategori p-3">
+                    <div class="summary-kategori p-3 mb-3">
                         <div class="row">
                             <div class="col-6">
                                 <i class="fa-solid fa-list fa-7x text-black-50"></i>
@@ -105,7 +105,7 @@ function generateRandomString($length = 10)
                     </div>
                 </div>
                 <div class=" col-lg-4">
-                    <div class="summary-ukuran p-3">
+                    <div class="summary-ukuran p-3 mb-3">
                         <div class="row">
                             <div class="col-6">
                                 <i class="fa-solid fa-expand fa-7x text-black-50"></i>
