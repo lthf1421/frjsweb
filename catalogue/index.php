@@ -319,8 +319,8 @@ if (isset($_GET['kategori'])) {
                             <h5 class="card-title"><?php echo $produk['nama']; ?> <span class="text-muted"><?php echo $produk['panjang'] . 'cm x ' . $produk['lebar'] . 'cm'; ?></span></h5>
                             <p class="card-text">Rp. <?php echo number_format($produk['harga'], 0, '.', ','); ?></p>
                             <a href="product-detail.php?id=<?php echo $produk['id']; ?>" class="product-link">View Details</a>
-                            <a href="https://api.whatsapp.com/send?text=Lihat%20produk%20<?php echo $produk['nama']; ?>%20ini%20deh,%20mungkin%20tertarik%20www.frjs.id/catalogue/product-detail.php?id=<?= $produk['id']; ?>" target="_blank" class="whatsapp-share-button">
-                                <i class="fa-solid fa-share-nodes"></i> <i class="bi bi-whatsapp"></i>
+                            <a href=" https://wa.me/6285280038866?text=Halo%2C%20admin.%0ASaya%20ingin%20memesan%20produk%20<?php echo $produk['nama']; ?>%20www.frjs.id/catalogue/product-detail.php?id=<?= $produk['id']; ?>" target="_blank" alt="Order Via Whatsapp" class="whatsapp-share-button">
+                                <i class="bi bi-whatsapp"></i>
                             </a>
                         </div>
                     </div>
