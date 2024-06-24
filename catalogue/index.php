@@ -196,6 +196,8 @@ if (isset($_GET['kategori'])) {
         }
     </style>
 
+    </style>
+
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb navbar-dark transparent-navbar">
             <div class="container">
@@ -220,11 +222,14 @@ if (isset($_GET['kategori'])) {
     </div>
 
     <!-- Sort Links -->
+    <!-- Sort Links -->
     <div class="container mt-3 d-inline-block">
         <div class="btn-group custom-dropdown">
             <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Sort by
             </button>
+            <!-- Muted text to display the selected sort option -->
+            <div id="selectedSortOption" class="text-muted mt-2 ml-5"></div>
             <div class="dropdown-menu w-120">
                 <?php
                 // Current URL parameters
@@ -236,13 +241,13 @@ if (isset($_GET['kategori'])) {
                 $sortDimensiAscUrl = $currentUrl . "&sort=dimensi_asc";
                 $sortDimensiDescUrl = $currentUrl . "&sort=dimensi_desc";
                 ?>
-                <a class="dropdown-item" href="<?php echo $sortDimensiAscUrl; ?>" onclick="sortProducts('dimensi_asc')">Dimensi, kecil ke besar</a>
+                <a id="sortDimensiAsc" class="dropdown-item" href="<?php echo $sortDimensiAscUrl; ?>" onclick="sortProducts('dimensi_asc')">Dimensi, kecil ke besar</a>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="<?php echo $sortDimensiDescUrl; ?>" onclick="sortProducts('dimensi_desc')">Dimensi, besar ke kecil</a>
+                <a id="sortDimensiDesc" class="dropdown-item" href="<?php echo $sortDimensiDescUrl; ?>" onclick="sortProducts('dimensi_desc')">Dimensi, besar ke kecil</a>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="<?php echo $sortHargaAscUrl; ?>" onclick="sortProducts('harga_asc')">Harga, rendah ke tinggi</a>
+                <a id="sortHargaAsc" class="dropdown-item" href="<?php echo $sortHargaAscUrl; ?>" onclick="sortProducts('harga_asc')">Harga, rendah ke tinggi</a>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="<?php echo $sortHargaDescUrl; ?>" onclick="sortProducts('harga_desc')">Harga, tinggi ke rendah</a>
+                <a id="sortHargaDesc" class="dropdown-item" href="<?php echo $sortHargaDescUrl; ?>" onclick="sortProducts('harga_desc')">Harga, tinggi ke rendah</a>
             </div>
         </div>
     </div>
@@ -250,6 +255,14 @@ if (isset($_GET['kategori'])) {
 
     <!-- Icons Style-->
     <style>
+        /* mobile phone */
+
+        @media (max-width: 450px) {
+            html {
+                font-size: 75%;
+            }
+        }
+
         .product-link {
             padding: 10px;
             background-color: #327B9B;
@@ -307,7 +320,7 @@ if (isset($_GET['kategori'])) {
                             <p class="card-text">Rp. <?php echo number_format($produk['harga'], 0, '.', ','); ?></p>
                             <a href="product-detail.php?id=<?php echo $produk['id']; ?>" class="product-link">View Details</a>
                             <a href="https://api.whatsapp.com/send?text=Lihat%20produk%20<?php echo $produk['nama']; ?>%20ini%20deh,%20mungkin%20tertarik%20www.frjs.id/catalogue/product-detail.php?id=<?= $produk['id']; ?>" target="_blank" class="whatsapp-share-button">
-                                <i class="bi bi-whatsapp"></i>
+                                <i class="fa-solid fa-share-nodes"></i> <i class="bi bi-whatsapp"></i>
                             </a>
                         </div>
                     </div>
@@ -327,12 +340,14 @@ if (isset($_GET['kategori'])) {
                 <a href="#" class="text-white mr-2">
                     <i class="bi bi-instagram"></i>
                 </a>
-                <a href="https://wa.me/6287838137197?text=Halo%2C%20admin%20FRJS." class="text-white" target="_blank">
+                <a href="https://wa.me6285280038866?text=Halo%2C%20admin%20FRJS." class="text-white" target="_blank">
                     <i class="bi bi-whatsapp"></i>
                 </a>
             </div>
         </div>
     </footer>
+
+
 
     <!-- Bootstrap JS and dependencies -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
