@@ -297,7 +297,9 @@ $queryKategori = mysqli_query($con, "SELECT * FROM kategori");
         </h2>
 
         <p class="text-center">
-            Syarat & ketentuan berlaku. untuk info lebih lanjut, silahkan hubungi kontak di bawah ini.
+            Syarat & ketentuan berlaku. untuk info lebih lanjut,
+        </p>
+        <p class="text-center mt-1"> silahkan hubungi kontak di bawah ini.</p>
         </p>
     </section>
 
@@ -330,7 +332,7 @@ $queryKategori = mysqli_query($con, "SELECT * FROM kategori");
                     </div>
                     <!-- WhatsApp -->
                     <div class="social">
-                        <a href="https://wa.me/6287838137197?text=Halo%2C%20admin%20FRJS." class="social-wa" target="_blank">
+                        <a href="https://wa.me/6285280038866?text=Halo%2C%20admin%20FRJS." class="social-wa" target="_blank">
                             <i class="bi bi-whatsapp"></i><span>+6287838137197</span>
                         </a>
                     </div>
