@@ -21,68 +21,78 @@ if (isset($_GET['kategori'])) {
         $nama = $kategoriData['nama'];
 
 
-        // Determine the sorting order
-        if (isset($_GET['sort'])) {
-            switch ($_GET['sort']) {
-                case 'asc':
-                    $sortQuery = 'ORDER BY ukuran.panjang ASC';
-                    break;
-                case 'desc':
-                    $sortQuery = 'ORDER BY ukuran.panjang DESC';
-                    break;
-                case 'harga_asc':
-                    $sortQuery = 'ORDER BY produk.harga ASC';
-                    break;
-                case 'harga_desc':
-                    $sortQuery = 'ORDER BY produk.harga DESC';
-                    break;
-                default:
-                    $sortQuery = 'ORDER BY ukuran.panjang ASC';
-                    break;
+        // Handle the selected category and size
+        if (isset($_GET['kategori'])) {
+            // existing code...
+
+            // Determine the sorting order
+            if (isset($_GET['sort'])) {
+                switch ($_GET['sort']) {
+                    case 'asc':
+                        $sortQuery = 'ORDER BY ukuran.panjang ASC, ukuran.lebar ASC';
+                        break;
+                    case 'desc':
+                        $sortQuery = 'ORDER BY ukuran.panjang DESC, ukuran.lebar DESC';
+                        break;
+                    case 'harga_asc':
+                        $sortQuery = 'ORDER BY produk.harga ASC';
+                        break;
+                    case 'harga_desc':
+                        $sortQuery = 'ORDER BY produk.harga DESC';
+                        break;
+                    case 'dimensi_asc':
+                        $sortQuery = 'ORDER BY ukuran.panjang * ukuran.lebar ASC';
+                        break;
+                    case 'dimensi_desc':
+                        $sortQuery = 'ORDER BY ukuran.panjang * ukuran.lebar DESC';
+                        break;
+                    default:
+                        $sortQuery = 'ORDER BY RAND()'; // Default to random order
+                        break;
+                }
+            } else {
+                $sortQuery = 'ORDER BY RAND()'; // Default to random order            
             }
+
+            // Query products within the selected category and sorted criteria
+            $queryProdukCards = mysqli_query($con, "SELECT produk.*, ukuran.panjang, ukuran.lebar FROM produk 
+                                            JOIN ukuran ON produk.ukuran_id = ukuran.id 
+                                            WHERE produk.kategori_id='$kategoriId' 
+                                            $sortQuery");
         } else {
-            $sortQuery = 'ORDER BY ukuran.panjang ASC'; // Default sorting
-        }
+            // existing code...
 
-        // Query products within the selected category and sorted criteria
-        $queryProdukCards = mysqli_query($con, "SELECT produk.*, ukuran.panjang, ukuran.lebar FROM produk 
-                                                JOIN ukuran ON produk.ukuran_id = ukuran.id 
-                                                WHERE produk.kategori_id='$kategoriId' 
-                                                $sortQuery");
-    }
-} else {
-    // Fetch all products for the initial load
-    if (isset($_GET['sort'])) {
-        switch ($_GET['sort']) {
-            case 'asc':
-                $sortQuery = 'ORDER BY ukuran.panjang ASC';
-                break;
-            case 'desc':
-                $sortQuery = 'ORDER BY ukuran.panjang DESC';
-                break;
-            case 'harga_asc':
-                $sortQuery = 'ORDER BY produk.harga ASC';
-                break;
-            case 'harga_desc':
-                $sortQuery = 'ORDER BY produk.harga DESC';
-                break;
-            default:
-                $sortQuery = 'ORDER BY ukuran.panjang ASC';
-                break;
-        }
-    } else {
-        $sortQuery = 'ORDER BY ukuran.panjang ASC'; // Default sorting
-    }
+            // Fetch all products for the initial load
+            if (isset($_GET['sort'])) {
+                switch ($_GET['sort']) {
+                        // existing cases...
 
-    $queryProdukCards = mysqli_query($con, "SELECT produk.*, ukuran.panjang, ukuran.lebar FROM produk 
+                        // Add case for sorting by dimensions
+                    case 'dimensi_asc':
+                        $sortQuery = 'ORDER BY ukuran.panjang * ukuran.lebar ASC';
+                        break;
+                    case 'dimensi_desc':
+                        $sortQuery = 'ORDER BY ukuran.panjang * ukuran.lebar DESC';
+                        break;
+                    default:
+                        $sortQuery = 'ORDER BY RAND()'; // Default to random order
+                        break;
+                }
+            } else {
+                $sortQuery = 'ORDER BY RAND()'; // Default to random order
+            }
+
+            $queryProdukCards = mysqli_query($con, "SELECT produk.*, ukuran.panjang, ukuran.lebar FROM produk 
                                             JOIN ukuran ON produk.ukuran_id = ukuran.id 
                                             $sortQuery");
+        }
 
-    // Fetch distinct categories and sizes for menu
-    $queryProdukMenu = mysqli_query($con, "SELECT DISTINCT produk.kategori_id, produk.ukuran_id, kategori.nama AS kategori_nama, ukuran.panjang, ukuran.lebar 
+        // Fetch distinct categories and sizes for menu
+        $queryProdukMenu = mysqli_query($con, "SELECT DISTINCT produk.kategori_id, produk.ukuran_id, kategori.nama AS kategori_nama, ukuran.panjang, ukuran.lebar 
                                            FROM produk 
                                            JOIN ukuran ON produk.ukuran_id = ukuran.id
                                            JOIN kategori ON produk.kategori_id = kategori.id");
+    }
 }
 ?>
 
@@ -221,14 +231,14 @@ if (isset($_GET['kategori'])) {
                 $currentUrl = isset($_GET['kategori']) ? "?kategori=$_GET[kategori]" : "";
 
                 // Sorting URLs
-                $sortAscUrl = $currentUrl . "&sort=asc";
-                $sortDescUrl = $currentUrl . "&sort=desc";
                 $sortHargaAscUrl = $currentUrl . "&sort=harga_asc";
                 $sortHargaDescUrl = $currentUrl . "&sort=harga_desc";
+                $sortDimensiAscUrl = $currentUrl . "&sort=dimensi_asc";
+                $sortDimensiDescUrl = $currentUrl . "&sort=dimensi_desc";
                 ?>
-                <a class=" dropdown-item" href="<?php echo $sortAscUrl; ?>" onclick="sortProducts('asc')">Ukuran, kecil ke besar</a>
+                <a class="dropdown-item" href="<?php echo $sortDimensiAscUrl; ?>" onclick="sortProducts('dimensi_asc')">Dimensi, kecil ke besar</a>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="<?php echo $sortDescUrl; ?>" onclick="sortProducts('desc')">Ukuran, besar ke kecil</a>
+                <a class="dropdown-item" href="<?php echo $sortDimensiDescUrl; ?>" onclick="sortProducts('dimensi_desc')">Dimensi, besar ke kecil</a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="<?php echo $sortHargaAscUrl; ?>" onclick="sortProducts('harga_asc')">Harga, rendah ke tinggi</a>
                 <div class="dropdown-divider"></div>
@@ -236,6 +246,7 @@ if (isset($_GET['kategori'])) {
             </div>
         </div>
     </div>
+
 
     <!-- Icons Style-->
     <style>
