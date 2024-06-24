@@ -45,7 +45,7 @@ $queryKategori = mysqli_query($con, "SELECT * FROM kategori");
         <a href="#">
             <button class="btn btn-primary mt-3"><i class="bi bi-instagram"></i></button>
         </a>
-        <a href="https://wa.me/6287838137197?text=Halo%2C%20admin%20FRJS." class="social-wa" target="_blank">
+        <a href="https://wa.me/6285280038866?text=Halo%2C%20admin%20FRJS." class="social-wa" target="_blank">
             <button class="btn btn-primary mt-3"><i class="bi bi-whatsapp"></i></i></button>
         </a>
     </div>
