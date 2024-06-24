@@ -183,16 +183,48 @@ WHERE produk.id = '$productId';
         .main-product-image img {
             max-width: 100%;
             height: auto;
-            border: 2px solid #ddd;
-            border-radius: 10px;
+            border-radius: 5px;
+            border: 2px solid white;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s ease;
             width: 100%;
-            /* Ensure image takes full width of its container */
-            min-width: 450px;
-            min-height: 420px;
-            max-height: 420px;
-            /* Adjust maximum height to control size */
+            min-width: 400px;
+            min-height: 450px;
+            max-height: 450px;
+            object-fit: cover;
+            /* Adjust as per your design needs */
+
+        }
+
+        #main-product-image {
+            max-width: 100%;
+            /* Ensures the image doesn't exceed its container's width */
+            height: auto;
+            /* Allows the image to scale proportionally */
+        }
+
+        /* mobile phone */
+
+        @media (max-width: 450px) {
+            html {
+                font-size: 75%;
+            }
+        }
+
+        @media (max-width: 450px) {
+            .main-product-image img {
+                flex: 0 0 20%;
+                /* Adjust width to occupy 1/5th of the container */
+                max-width: 30%;
+            }
+        }
+
+        @media (max-width: 450px) {
+            #small-images-container .col-2 {
+                flex: 0 0 20%;
+                /* Adjust width to occupy 1/5th of the container */
+                max-width: 19%;
+            }
         }
 
         /* Styles for smaller screens */
@@ -228,18 +260,17 @@ WHERE produk.id = '$productId';
         <div class="row">
             <div class="col-lg-6">
                 <!-- Main product image -->
-                <div class="main-product-image aspect-ratio-container">
+                <div class="main-product-image mb-3">
                     <img src="../img/<?= $produk['foto']; ?>" id="main-product-image" class="img-fluid rounded-5" alt="Product Image">
-                </div>
 
-                <!-- Small box containers for pictures -->
+                </div>
                 <div class="row" id="small-images-container">
                     <?php
                     $foto_array = array($produk['foto'], $produk['foto1'], $produk['foto2'], $produk['foto3'], $produk['foto4'], $produk['foto5'], $produk['foto6'], $produk['foto7'], $produk['foto8'], $produk['foto9'], $produk['foto10'], $produk['foto11']);
                     foreach ($foto_array as $key => $foto) :
                         if (!empty($foto)) :
                     ?>
-                            <div class="col-2">
+                            <div class="col-2" style="justify-content: space-between;">
                                 <div class="small-box-container">
                                     <a href="#" class="small-image-link" data-index="<?= $key ?>">
                                         <img src="../img/<?= $foto; ?>" class="small-product-image" alt="Small Image <?= $key + 1 ?>">
@@ -251,8 +282,6 @@ WHERE produk.id = '$productId';
                     endforeach;
                     ?>
                 </div>
-
-
             </div>
 
             <div class="col-lg-6">
@@ -312,64 +341,69 @@ WHERE produk.id = '$productId';
                 </div>
                 <h5 class="mt-2">Deskripsi Produk</h5>
                 <p><?php echo $produk['detail']; ?></p>
+
+
             </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="text-white text-center text-lg-start mt-5">
+        <div class="container d-flex justify-content-between align-items-center py-3">
+            <a href="../frjs/about-us.php#garansi" class="text-white">Kebijakan Garansi</a>
+            <span>© 2024 FRJS Scoreboard & LED</span>
+            <div>
+                <a href="#" class="text-white mr-2">
+                    <i class="bi bi-instagram"></i>
+                </a>
+                <a href="https://wa.me/6287838137197?text=Halo%2C%20admin%20FRJS" class="text-white">
+                    <i class="bi bi-whatsapp"></i>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function updateMainImage(imageSrc) {
+            var mainImage = document.getElementById('modal-image');
+            mainImage.src = imageSrc;
+        }
+    </script>
 
 
-            <!-- Footer -->
-            <footer class="text-white text-center text-lg-start mt-5">
-                <div class="container d-flex justify-content-between align-items-center py-3">
-                    <a href="../frjs/about-us.php#garansi" class="text-white">Kebijakan Garansi</a>
-                    <span>© 2024 FRJS Scoreboard & LED</span>
-                    <div>
-                        <a href="#" class="text-white mr-2">
-                            <i class="bi bi-instagram"></i>
-                        </a>
-                        <a href="https://wa.me/6287838137197?text=Halo%2C%20admin%20FRJS" class="text-white">
-                            <i class="bi bi-whatsapp"></i>
-                        </a>
-                    </div>
-                </div>
-            </footer>
+    <!-- Java Script for Switch Main foto with smaller foto-->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get all small product images
+            const smallImages = document.querySelectorAll('.small-product-image');
 
-            <script>
-                function updateMainImage(imageSrc) {
-                    var mainImage = document.getElementById('modal-image');
-                    mainImage.src = imageSrc;
-                }
-            </script>
+            // Get the main product image element
+            const mainImage = document.getElementById('main-product-image');
 
+            // Loop through each small image and add click event listener
+            smallImages.forEach(function(smallImage) {
+                smallImage.addEventListener('click', function(event) {
+                    event.preventDefault(); // Prevent the default action of anchor tag
 
-            <!-- Java Script for Switch Main foto with smaller foto-->
-            <script>
-                document.addEventListener('DOMContentLoaded', function() {
-                    // Get all small product images
-                    const smallImages = document.querySelectorAll('.small-product-image');
-
-                    // Get the main product image element
-                    const mainImage = document.getElementById('main-product-image');
-
-                    // Loop through each small image and add click event listener
-                    smallImages.forEach(function(smallImage) {
-                        smallImage.addEventListener('click', function(event) {
-                            event.preventDefault(); // Prevent the default action of anchor tag
-
-                            // Update main product image src with clicked small image src
-                            mainImage.src = this.src;
-                        });
-                    });
+                    // Update main product image src with clicked small image src
+                    mainImage.src = this.src;
                 });
-            </script>
+            });
+        });
+    </script>
 
-            <script>
-                $('#myModal').on('shown.bs.modal', function() {
-                    $('#myInput').trigger('focus')
-                })
-            </script>
+    <script>
+        $('#myModal').on('shown.bs.modal', function() {
+            $('#myInput').trigger('focus')
+        })
+    </script>
 
-            <!-- Bootstrap JS and dependencies -->
-            <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-            <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-            <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+
 </body>
 
 </html>
