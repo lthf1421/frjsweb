@@ -171,9 +171,7 @@ footer a {
 .btn-primary {
     margin-top: 1px;
     margin-bottom: 10px;
-    width: 200px;
-    /* Adjust width as needed */
-    min-width: 10px;
+    max-width: auto;
     /* Set a minimum width for consistency */
     background-color: transparent !important;
     /* Set button background to transparent */
@@ -215,28 +213,17 @@ footer a {
 }
 
 .small-box-container img {
-    border: 2px solid #fff;
+    border: 1px solid #fff;
     /* White bold border */
     box-shadow: #95a2af;
+    margin-right: 5px;
     width: 100%;
     height: 100%;
     object-fit: cover;
     /* Cover the container with the image */
-    border-radius: 5px;
+    border-radius: 3px;
     /* Inherit rounded corners from parent */
 }
-
-.img-square {
-    width: 100%;
-    /* Ensure image fills container width */
-    position: absolute;
-    /* Position the image absolutely */
-    top: 0;
-    left: 0;
-    object-fit: cover;
-    /* Cover the container with image */
-}
-
 
 .card-text .product-link {
     display: inline-block;
