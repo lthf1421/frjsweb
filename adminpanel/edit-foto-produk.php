@@ -115,6 +115,17 @@ function generateRandomString($length = 10)
         /* Adjust border radius as needed */
         margin-bottom: 20px;
     }
+
+    .uploaded-img {
+        max-width: 100%;
+        /* Ensures image does not exceed its container width */
+        height: auto;
+        /* Maintains aspect ratio */
+        display: block;
+        /* Ensures proper spacing and alignment */
+        margin: 0 auto;
+        /* Centers the image horizontally */
+    }
 </style>
 
 <body>
@@ -1136,7 +1147,7 @@ function generateRandomString($length = 10)
                                 <label for="currentFoto" class="bold-label">Foto Alternatif 1</label>
                                 <br>
                                 <?php if (!empty($data['foto1'])) : ?>
-                                    <img src="../img/<?php echo $data['foto1'] ?>" alt="" class="uploaded-img" width="150px">
+                                    <img src="../img/<?php echo $data['foto1'] ?>" alt="" class="uploaded-img">
                                 <?php endif; ?>
                             </div>
 
