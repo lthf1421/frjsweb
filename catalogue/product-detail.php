@@ -289,7 +289,7 @@ WHERE produk.id = '$productId';
                 <div class="product-details">
                     <h1 class="display-4"><?php echo $produk['nama']; ?></h1>
                     <p class="lead">Rp. <?php echo number_format($produk['harga'], 0, '.', ','); ?></p>
-                    <p class="text-muted"><?php echo $produk['panjang'] . ' cm x ' . $produk['lebar'] . ' cm'; ?></p>
+                    <p class="text-muted" style="font-size:larger;"><?php echo $produk['panjang'] . ' cm x ' . $produk['lebar'] . ' cm'; ?></p>
                     <p style="font-style: italic;"><?php echo trim($ketersediaan_stok == 'pre-order' ? 'Pre Order' : 'Ready Stock'); ?></p>
                     <a href="
                     https://wa.me/6285280038866?text=Halo%2C%20admin.%0ASaya%20ingin%20memesan%20produk%20<?php echo $produk['nama']; ?>
