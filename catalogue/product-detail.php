@@ -292,8 +292,8 @@ WHERE produk.id = '$productId';
                     <p class="text-muted"><?php echo $produk['panjang'] . ' cm x ' . $produk['lebar'] . ' cm'; ?></p>
                     <p style="font-style: italic;"><?php echo trim($ketersediaan_stok == 'pre-order' ? 'Pre Order' : 'Ready Stock'); ?></p>
                     <a href="
-                    https://wa.me/6287838137197?text=Halo%2C%20admin.%0ASaya%20ingin%20memesan%20produk%20<?php echo $produk['nama']; ?>
-                    " class="btn btn-primary" target="_blank">Order Sekarang</a>
+                    https://wa.me/6285280038866?text=Halo%2C%20admin.%0ASaya%20ingin%20memesan%20produk%20<?php echo $produk['nama']; ?>
+                    " class="btn btn-primary" style="width: 200px;" target="_blank">Order Sekarang</a>
                     <!-- WhatsApp share icon -->
 
                     <style>
@@ -335,7 +335,7 @@ WHERE produk.id = '$productId';
                         }
                     </style>
                     <a href="https://api.whatsapp.com/send?text=Lihat%20produk%20<?php echo $produk['nama']; ?>%20ini%20deh,%20mungkin%20tertarik%20www.frjs.id/catalogue/product-detail.php?id=<?= $produk['id']; ?>" target="_blank" class="whatsapp-share-button">
-                        <i class="fa-solid fa-share"></i>
+                        <i class="fa-solid fa-share-nodes"></i>
                         <i class="bi bi-whatsapp"></i>
                     </a>
                 </div>
@@ -356,7 +356,7 @@ WHERE produk.id = '$productId';
                 <a href="#" class="text-white mr-2">
                     <i class="bi bi-instagram"></i>
                 </a>
-                <a href="https://wa.me/6287838137197?text=Halo%2C%20admin%20FRJS" class="text-white">
+                <a href="https://wa.me/6285280038866?text=Halo%2C%20admin%20FRJS" class="text-white">
                     <i class="bi bi-whatsapp"></i>
                 </a>
             </div>
