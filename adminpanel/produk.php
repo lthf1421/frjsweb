@@ -1,10 +1,12 @@
 <?php
 require "../koneksi.php";
 
-$query = mysqli_query($con, "SELECT * FROM produk");
+$query = mysqli_query($con, "SELECT a.*, b.nama AS nama_kategori FROM produk a JOIN kategori b ON a.kategori_id=b.id");
 $jumlahProduk = mysqli_num_rows($query);
 $queryKategori = mysqli_query($con, "SELECT * FROM kategori");
+$jumlahKategori = mysqli_num_rows($queryKategori);
 $queryUkuran = mysqli_query($con, "SELECT * FROM ukuran");
+$jumlahUkuran = mysqli_num_rows($queryUkuran);
 
 function generateRandomString($length = 10)
 {
@@ -18,13 +20,15 @@ function generateRandomString($length = 10)
 }
 ?>
 
+
 <!DOCTYPE html>
 <html lang="en">
+
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tambah Ukuran</title>
+    <title>Produk</title>
     <script src="https://kit.fontawesome.com/296a2adfbf.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
@@ -33,6 +37,7 @@ function generateRandomString($length = 10)
     <link rel="stylesheet" href="styles.css">
 </head>
 
+
 <style>
     .no-decoration {
         text-decoration: none;
@@ -40,79 +45,6 @@ function generateRandomString($length = 10)
 
     form div {
         margin-bottom: 10px;
-    }
-
-    .file-upload {
-        margin-bottom: 15px;
-    }
-
-    .input-group {
-        position: relative;
-    }
-
-    .delete-btn {
-        background-color: #dc3545;
-        color: #fff;
-        border: none;
-    }
-
-    .delete-btn:hover {
-        background-color: #c82333;
-    }
-
-    /* Custom CSS for additional styling */
-    .btn-custom {
-        padding: 10px 20px;
-        /* Adjust padding as needed */
-        border-radius: 5px;
-        /* Rounded corners */
-    }
-
-    .btn-custom a {
-        text-decoration: none;
-        /* Remove underline */
-    }
-
-    .btn-custom a:hover {
-        text-decoration: none;
-        /* Remove underline on hover */
-        opacity: 0.8;
-        /* Reduce opacity on hover */
-    }
-
-    .btn-custom i {
-        color: #fff;
-        margin-right: 5px;
-        /* Adjust spacing between icon and text */
-    }
-
-    /* Custom CSS for paper-like appearance */
-    .card {
-        border: none;
-        border-radius: 12px;
-        /* Adjust border radius as needed */
-        box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-        /* Adjust shadow as needed */
-        width: 100%;
-        /* Ensure the card spans full width of its container */
-        max-width: 800px;
-        /* Limit card width if needed */
-    }
-
-    .alert-custom {
-        background-color: #d4edda;
-        color: #155724;
-        border-color: #c3e6cb;
-        padding: 10px;
-        border-radius: 5px;
-    }
-
-
-    .file-upload {
-        /* Adjust padding as needed */
-        border-radius: 8px;
-        /* Adjust border radius as needed */
-        margin-bottom: 20px;
     }
 </style>
 
@@ -127,84 +59,80 @@ function generateRandomString($length = 10)
                         Home
                     </a>
                 </li>
-                <li class="breadcrumb-item active" aria-current="page">
-                    <a href="../adminpanel/ukuran.php" class="no-decoration text-muted">
-                        Ukuran
-                    </a>
-                </li>
                 <li class="breadcrumb-item active aria-current-page">
-                    Tambah Ukuran
+                    Produk
                 </li>
             </ol>
         </nav>
 
-        <a href="../adminpanel/ukuran.php" class="no-decoration text-white">
+        <a href="../adminpanel/index.php" class="no-decoration text-white">
             <div class="btn btn-primary mb-3">
                 <i class="fas fa-long-arrow-alt-left"></i> Kembali
             </div>
         </a>
 
+        <a href="../adminpanel/tambah-produk.php" class="no-decoration text-white">
+            <div class="btn btn-success mb-3">
+                <i class="fa-regular fa-square-plus"></i> Tambah Produk Baru
+            </div>
+        </a>
 
-        <div class="container mt-5">
-            <div class="row justify-content-center">
-                <div class="col-lg-8">
-                    <div class="card p-4 shadow">
-                        <h3 class="mb-4">Tambah Ukuran</h3>
-
+        <div class="mt-5">
+            <h2>List Produk</h2>
+            <div class="table-responsive mt-5">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Nama</th>
+                            <th>Kategori</th>
+                            <th>Harga</th>
+                            <th>Ketersediaan Stok</th>
+                            <th>Action</th>
+                            <th>Galeri</th>
+                        </tr>
+                    </thead>
+                    <tbody>
                         <?php
-                        if (isset($_POST['simpan'])) {
-                            $panjang = htmlspecialchars($_POST['panjang']);
-                            $lebar = htmlspecialchars($_POST['lebar']);
-
-                            // Check if panjang and lebar are not empty
-                            if ($panjang == '' || $lebar == '') {
+                        if ($jumlahProduk == 0) {
                         ?>
-                                <div class="alert alert-warning mt-3" role="alert">
-                                    Panjang & lebar wajib diisi
-                                </div>
-                                <?php
-                            } else {
-                                // Proceed with inserting into the database
-                                $queryTambah = mysqli_query($con, "INSERT INTO ukuran (panjang, lebar)
-                    VALUES ('$panjang', '$lebar')");
-
-                                if ($queryTambah) {
-                                ?>
-                                    <div class="alert alert-success mt-3" role="alert">
-                                        Ukuran baru berhasil disimpan
-                                    </div>
-                                    <meta http-equiv="refresh" content="2; url=ukuran.php" />
+                            <tr>
+                                <td colspan="5" class="text-center">Data produk tidak tersedia</td>
+                            </tr>
+                            <?php
+                        } else {
+                            $jumlah = 1;
+                            while ($data = mysqli_fetch_array($query)) {
+                            ?>
+                                <tr>
+                                    <td><?php echo $data['nama']; ?></td>
+                                    <td><?php echo $data['nama_kategori']; ?></td>
+                                    <td><?php echo $data['harga']; ?></td>
+                                    <td><?php echo $data['ketersediaan_stok']; ?></td>
+                                    <td>
+                                        <a href="edit-produk.php?p=<?php echo $data['id']; ?>" class="btn btn-info"><i class="fas fa-pen" title="Edit"></i>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a href="edit-foto-produk.php?p=<?php echo $data['id']; ?>" class="btn btn-warning " style="color: white;"><i class="bi bi-image"></i>
+                                        </a>
+                                    </td>
+                                </tr>
                         <?php
-                                } else {
-                                    echo mysqli_error($con);
-                                }
+                                $jumlah++;
                             }
                         }
                         ?>
 
-
-                        <form action="" method="post" enctype="multipart/form-data">
-                            <div class="form-group">
-                                <label for="panjang">Panjang (cm)</label>
-                                <input type="double" id="panjang" name="panjang" class="form-control" autocomplete="off">
-                            </div>
-                            <div class="form-group">
-                                <label for="lebar">Lebar (cm)</label>
-                                <input type="double" id="panjang" name="lebar" class="form-control" autocomplete="off">
-                            </div>
-                            <button type="submit" class="btn btn-primary mt-3" name="simpan">Simpan</button>
-                        </form>
-                    </div>
-                </div>
-
+                    </tbody>
+                </table>
             </div>
-            <!--End of tambah ukuran -->
 
-            <!-- End of Delete files on foto form-->
-            <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-            <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-            <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+        </div>
 
+    </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </body>
 
 </html>
