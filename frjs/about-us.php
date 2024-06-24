@@ -71,6 +71,12 @@ $queryKategori = mysqli_query($con, "SELECT * FROM kategori");
             flex-direction: column;
             min-height: 100vh;
         }
+
+        @media (max-width: 450px) {
+            html {
+                font-size: 75%;
+            }
+        }
     </style>
 
 
