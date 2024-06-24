@@ -300,9 +300,10 @@ WHERE produk.id = '$productId';
                         .whatsapp-share-button {
                             display: inline-flex;
                             align-items: center;
-                            background-color: white;
-                            color: #39385c;
-                            padding: 3px 8px;
+                            background-color: transparent;
+                            color: white;
+                            padding: 2px;
+                            padding-right: 6px;
                             /* Padding inside the button */
                             border-radius: 5px;
                             /* Rounded corners */
@@ -322,7 +323,7 @@ WHERE produk.id = '$productId';
                         }
 
                         .whatsapp-share-button:hover {
-                            color: #39385c;
+                            color: white;
                             text-decoration: none;
                         }
                     </style>
