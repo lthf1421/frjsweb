@@ -392,7 +392,7 @@ WHERE produk.id = '$productId';
 
                     /* Styling for video container */
                     .video-container {
-                        margin-top: 10px;
+                        margin-top: 5px;
                         /* Space above video container */
                         background-color: transparent;
                         border-radius: 8px;
