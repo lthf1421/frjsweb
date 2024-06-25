@@ -165,6 +165,8 @@ function generateRandomString($length = 10)
                             $ukuran = htmlspecialchars($_POST['ukuran']);
                             $harga = htmlspecialchars($_POST['harga']);
                             $detail = htmlspecialchars($_POST['detail']);
+                            $embed_link = htmlspecialchars($_POST['embed_link']);
+                            $judul_vid = htmlspecialchars($_POST['judul_vid']);
                             $ketersediaan_stok = htmlspecialchars($_POST['ketersediaan_stok']);
 
                             if ($nama == '' || $harga == '') {
@@ -174,7 +176,7 @@ function generateRandomString($length = 10)
                                 </div>
                                 <?php
                             } else {
-                                $queryUpdate = mysqli_query($con, "UPDATE produk SET kategori_id='$kategori', ukuran_id='$ukuran', nama='$nama', harga='$harga', detail='$detail',
+                                $queryUpdate = mysqli_query($con, "UPDATE produk SET kategori_id='$kategori', ukuran_id='$ukuran', nama='$nama', harga='$harga', detail='$detail', embed_link='$embed_link', judul_vid='$judul_vid',
                                     ketersediaan_stok='$ketersediaan_stok' WHERE id=$id");
 
                                 if ($queryUpdate) {
@@ -334,6 +336,18 @@ function generateRandomString($length = 10)
                                 <textarea name="detail" id="detail" cols="30" rows="10" class="form-control"><?php echo $data['detail'] ?></textarea>
                                 </textarea>
                             </div>
+
+
+                            <div class="form-group">
+                                <label for="embed_link">Link Video Youtube<span class="text-muted"></span></label>
+                                <input type="text" id="embed_link" name="embed_link" class="form-control" autocomplete="off" value="<?php echo $data['embed_link']; ?>" placeholder="contoh : https://youtu.be/ehSbcyredgQ?si=WtMW-e-Zt7u68oCU">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="judul_vid">Judul Video Youtube<span class="text-muted"></span></label>
+                                <input type="text" id="judul_vid" name="judul_vid" class="form-control" autocomplete="off" value="<?php echo $data['judul_vid']; ?>" placeholder="contoh : Petunjuk Penggunaan Produk SB75A">
+                            </div>
+
 
                             <div>
                                 <label for="ketersediaan_stok">Ketersediaan Stok</label>
