@@ -217,6 +217,17 @@ WHERE produk.id = '$productId';
                 /* Adjust width to occupy 1/5th of the container */
                 max-width: 30%;
             }
+
+            .video-container iframe {
+                width: 80%;
+                /* Make the iframe responsive */
+                /* Max width for larger screens */
+                height: 100px;
+                /* Auto height based on width */
+                border: none;
+                /* Remove iframe border */
+                border-radius: 8px;
+            }
         }
 
         @media (max-width: 450px) {
@@ -288,7 +299,7 @@ WHERE produk.id = '$productId';
                 <!-- Product details -->
                 <div class="product-details">
                     <h1 class="display-4"><?php echo $produk['nama']; ?></h1>
-                    <p class="lead">Rp. <?php echo number_format($produk['harga'], 0, '.', ','); ?></p>
+                    <p class="lead" style="font-size: 1.5rem;">Rp. <?php echo number_format($produk['harga'], 0, '.', ','); ?></p>
                     <p class="lead" style="font-size:larger; background-color:white; color:#39385c; padding-left:8px;"> Panjang x Lebar = <?php echo $produk['panjang'] . ' cm x ' . $produk['lebar'] . ' cm'; ?></p>
                     <p style="font-style: italic;"><?php echo trim($ketersediaan_stok == 'pre-order' ? 'Pre Order' : 'Ready Stock'); ?></p>
                     <a href="
@@ -332,9 +343,143 @@ WHERE produk.id = '$productId';
                         <i class="bi bi-whatsapp"></i>
                     </a>
                 </div>
-                <h5 class="mt-2">Deskripsi Produk</h5>
-                <p><?php echo $produk['detail']; ?></p>
 
+                <h5 class="mt-2">Deskripsi Produk</h5>
+
+                <!-- Awal Coding Embed Video Youtube-->
+
+                <style>
+                    /* Basic styling for the button */
+                    .embed-button {
+                        background-color: #333152;
+                        /* Green background */
+                        border: none;
+                        /* Remove border */
+                        color: white;
+                        /* White text */
+                        padding: 5px;
+                        /* Padding */
+                        text-align: center;
+                        /* Center text */
+                        text-decoration: none;
+                        /* Remove underline */
+                        display: inline-block;
+                        /* Display as block */
+                        font-size: 16px;
+                        /* Font size */
+                        cursor: pointer;
+                        /* Pointer cursor */
+                        border-radius: 5px;
+                        /* Rounded corners */
+                        transition: background-color 0.3s ease;
+                        /* Smooth transition */
+                        outline: none;
+                        margin-top: 5px;
+                        margin-bottom: 15px;
+                    }
+
+                    /* Hover effect */
+                    .embed-button:hover {
+                        background-color: #2c2b46;
+                        /* Darker green */
+                    }
+
+                    .embed-button:active,
+                    .embed-button:focus {
+                        outline: none;
+                        /* Remove outline on active and focus states */
+                    }
+
+                    /* Styling for video container */
+                    .video-container {
+                        margin-top: 10px;
+                        /* Space above video container */
+                        background-color: transparent;
+                        border-radius: 8px;
+                        text-align: left;
+                        display: none;
+                        /* Hide video container initially */
+                        margin-bottom: 15px;
+                    }
+
+                    .video-container iframe {
+                        width: 100%;
+                        /* Make the iframe responsive */
+                        /* Max width for larger screens */
+                        height: 300px;
+                        /* Auto height based on width */
+                        border: none;
+                        /* Remove iframe border */
+                        border-radius: 8px;
+                    }
+                </style>
+                </head>
+
+                <body>
+
+                    <?php if (!empty($produk['embed_link'])) : ?>
+                        <!-- Embed button -->
+                        <button class="embed-button" onclick="toggleEmbed()">
+                            <i class="bi bi-play-btn-fill"></i> Video Produk <?php echo $produk['nama']; ?>
+                        </button>
+
+                        <!-- Container for the embedded video -->
+                        <div id="video-container" class="video-container">
+                            <!-- Embedded video will be inserted here -->
+                            <iframe id="youtube-video" src="" frameborder="0" allowfullscreen></iframe>
+                        </div>
+                    <?php endif; ?>
+
+                    <script>
+                        var isVideoEmbedded = false;
+                        var videoID = ''; // Initialize variable for video ID
+
+                        function toggleEmbed() {
+                            var videoContainer = document.getElementById('video-container');
+
+                            if (!isVideoEmbedded) {
+                                // Extract video ID from embed link
+                                videoID = extractVideoID('<?php echo $produk['embed_link']; ?>');
+
+                                if (videoID) {
+                                    var embedCode = '<iframe width="560" height="315" src="https://www.youtube.com/embed/' + videoID + '" frameborder="0" allowfullscreen></iframe>';
+
+                                    // Insert the embed code into the video container
+                                    videoContainer.innerHTML = embedCode;
+
+                                    // Show the video container
+                                    videoContainer.style.display = 'block';
+
+                                    isVideoEmbedded = true;
+                                    document.querySelector('.embed-button').innerHTML = '<i class="fa-solid fa-square-minus"></i> Video Produk <?php echo $produk['nama']; ?>';
+                                } else {
+                                    console.error('Invalid YouTube URL provided.');
+                                }
+                            } else {
+                                // Hide the video container
+                                videoContainer.style.display = 'none';
+
+                                isVideoEmbedded = false;
+                                document.querySelector('.embed-button').innerHTML = ' <i class="bi bi-play-btn-fill"></i> Video Produk <?php echo $produk['nama']; ?>';
+                            }
+                        }
+
+                        function extractVideoID(url) {
+                            // Regular expression to match YouTube video ID
+                            var regExp = /^.*(?:youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=)([^#\&\?]*).*/;
+                            var match = url.match(regExp);
+                            if (match && match[1].length === 11) {
+                                return match[1];
+                            } else {
+                                console.error('Invalid YouTube URL format.');
+                                return null;
+                            }
+                        }
+                    </script>
+
+                    <!-- Akhir Coding Embed Video Youtube -->
+
+                    <p><?php echo $produk['detail']; ?></p>
 
             </div>
         </div>
