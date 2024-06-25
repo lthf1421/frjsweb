@@ -159,6 +159,8 @@ function generateRandomString($length = 10)
                             $ukuran = htmlspecialchars($_POST['ukuran']);
                             $harga = htmlspecialchars($_POST['harga']);
                             $detail = htmlspecialchars($_POST['detail']);
+                            $embed_link = htmlspecialchars($_POST['embed_link']);
+                            $judul_vid = htmlspecialchars($_POST['judul_vid']);
                             $ketersediaan_stok = htmlspecialchars($_POST['ketersediaan_stok']);
 
                             // Main photo (foto) handling
@@ -260,8 +262,8 @@ function generateRandomString($length = 10)
                             // Insert into database only if main photo upload was successful
                             if ($nama_file != '' && $image_size <= 50000000 && in_array($imageFileType, ['jpg', 'png', 'jpeg'])) {
                                 // Insert into database
-                                $queryTambah = mysqli_query($con, "INSERT INTO produk (kategori_id, ukuran_id, nama, harga, foto, foto1, foto2, foto3, detail, ketersediaan_stok)
-            VALUES ('$kategori', '$ukuran', '$nama', '$harga', '$new_name', '$fotoalt1', '$fotoalt2', '$fotoalt3', '$detail', '$ketersediaan_stok')");
+                                $queryTambah = mysqli_query($con, "INSERT INTO produk (kategori_id, ukuran_id, nama, harga, foto, foto1, foto2, foto3, detail, embed_link, judul_vid, ketersediaan_stok)
+            VALUES ('$kategori', '$ukuran', '$nama', '$harga', '$new_name', '$fotoalt1', '$fotoalt2', '$fotoalt3', '$detail', '$embed_link', '$judul_vid', '$ketersediaan_stok')");
 
                                 if ($queryTambah) {
                                     ?>
@@ -326,7 +328,7 @@ function generateRandomString($length = 10)
                                 <div class="input-group">
                                     <input type="file" name="foto" id="foto" class="form-control" required>
                                     <div class="input-group-append">
-                                        <button class="btn btn-outline-danger delete-btn" type="button" style="display:none; background-color:chocolate;">Undo</button>
+                                        <button class="btn btn-outline-danger delete-btn" type="button" style="display:none; background-color:darkkhaki;">Undo</button>
                                     </div>
                                 </div>
                             </div>
@@ -336,7 +338,7 @@ function generateRandomString($length = 10)
                                 <div class="input-group">
                                     <input type="file" name="fotoalt1" id="fotoalt1" class="form-control">
                                     <div class="input-group-append">
-                                        <button class="btn btn-outline-danger delete-btn" type="button" style="display:none; background-color:chocolate;">Undo</button>
+                                        <button class="btn btn-outline-danger delete-btn" type="button" style="display:none; background-color:darkkhaki;">Undo</button>
                                     </div>
                                 </div>
                             </div>
@@ -346,7 +348,7 @@ function generateRandomString($length = 10)
                                 <div class="input-group">
                                     <input type="file" name="fotoalt2" id="fotoalt2" class="form-control">
                                     <div class="input-group-append">
-                                        <button class="btn btn-outline-danger delete-btn" type="button" style="display:none; background-color:chocolate;">Undo</button>
+                                        <button class="btn btn-outline-danger delete-btn" type="button" style="display:none; background-color:darkkhaki;">Undo</button>
                                     </div>
                                 </div>
                             </div>
@@ -356,7 +358,7 @@ function generateRandomString($length = 10)
                                 <div class="input-group">
                                     <input type="file" name="fotoalt3" id="fotoalt3" class="form-control">
                                     <div class="input-group-append">
-                                        <button class="btn btn-outline-danger delete-btn" type="button" style="display:none; background-color:chocolate;">Undo</button>
+                                        <button class="btn btn-outline-danger delete-btn" type="button" style="display:none; background-color:darkkhaki;">Undo</button>
                                     </div>
                                 </div>
                             </div>
@@ -364,6 +366,16 @@ function generateRandomString($length = 10)
                             <div class="form-group">
                                 <label for="detail">Deskripsi Produk <span class="text-muted"> *max 5000 huruf</span></label>
                                 <textarea name="detail" id="detail" cols="30" rows="5" class="form-control"></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="embed_link">Link Video Youtube<span class="text-muted"></span></label>
+                                <input type="text" id="embed_link" name="embed_link" class="form-control" autocomplete="off" placeholder="contoh : https://youtu.be/ehSbcyredgQ?si=WtMW-e-Zt7u68oCU">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="judul_vid">Judul Video Youtube<span class="text-muted"></span></label>
+                                <input type="text" id="judul_vid" name="judul_vid" class="form-control" autocomplete="off" placeholder="contoh : Petunjuk Penggunaan Produk SB75A">
                             </div>
 
                             <div class="form-group">
