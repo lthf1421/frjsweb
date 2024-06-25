@@ -205,17 +205,29 @@ WHERE produk.id = '$productId';
 
         /* mobile phone */
 
-        @media (max-width: 450px) {
+        @media (max-width: 400px) {
             html {
-                font-size: 75%;
+                font-size: 70%;
             }
         }
 
-        @media (max-width: 450px) {
+        @media (min-width: 475px) {
+            html {
+                font-size: 100%;
+            }
+        }
+
+        @media (min-width: 401px) {
+            html {
+                font-size: 80%;
+            }
+
             .main-product-image img {
-                flex: 0 0 20%;
                 /* Adjust width to occupy 1/5th of the container */
-                max-width: 30%;
+                width: 100%;
+                max-height: 150px;
+                /* Minimum height */
+                height: 100%;
             }
 
             .video-container iframe {
@@ -230,6 +242,7 @@ WHERE produk.id = '$productId';
             }
         }
 
+
         @media (max-width: 450px) {
             #small-images-container .col-2 {
                 flex: 0 0 20%;
@@ -243,7 +256,7 @@ WHERE produk.id = '$productId';
             .main-product-image img {
                 min-height: 375px;
                 /* Minimum height */
-                max-height: 375px;
+                height: 100%;
                 /* Maximum height */
             }
         }
@@ -252,7 +265,7 @@ WHERE produk.id = '$productId';
             .main-product-image img {
                 min-height: 370px;
                 /* Minimum height */
-                max-height: 370px;
+                height: 100%;
                 /* Maximum height */
             }
         }
@@ -420,7 +433,7 @@ WHERE produk.id = '$productId';
                     <?php if (!empty($produk['embed_link'])) : ?>
                         <!-- Embed button -->
                         <button class="embed-button" onclick="toggleEmbed()">
-                            <i class="bi bi-play-btn-fill"></i> Video Produk <?php echo $produk['nama']; ?>
+                            <i class="bi bi-play-btn-fill"></i> <?php echo $produk['judul_vid']; ?>
                         </button>
 
                         <!-- Container for the embedded video -->
@@ -451,7 +464,7 @@ WHERE produk.id = '$productId';
                                     videoContainer.style.display = 'block';
 
                                     isVideoEmbedded = true;
-                                    document.querySelector('.embed-button').innerHTML = '<i class="fa-solid fa-square-minus"></i> Video Produk <?php echo $produk['nama']; ?>';
+                                    document.querySelector('.embed-button').innerHTML = '<i class="fa-solid fa-square-minus"></i> <?php echo $produk['judul_vid']; ?>';
                                 } else {
                                     console.error('Invalid YouTube URL provided.');
                                 }
@@ -460,7 +473,7 @@ WHERE produk.id = '$productId';
                                 videoContainer.style.display = 'none';
 
                                 isVideoEmbedded = false;
-                                document.querySelector('.embed-button').innerHTML = ' <i class="bi bi-play-btn-fill"></i> Video Produk <?php echo $produk['nama']; ?>';
+                                document.querySelector('.embed-button').innerHTML = ' <i class="bi bi-play-btn-fill"></i> <?php echo $produk['judul_vid']; ?>';
                             }
                         }
 
