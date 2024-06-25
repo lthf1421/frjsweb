@@ -257,9 +257,21 @@ if (isset($_GET['kategori'])) {
     <style>
         /* mobile phone */
 
-        @media (max-width: 450px) {
+        @media (max-width: 400px) {
             html {
-                font-size: 75%;
+                font-size: 70%;
+            }
+        }
+
+        @media (min-width: 401px) {
+            html {
+                font-size: 80%;
+            }
+        }
+
+        @media (min-width: 475px) {
+            html {
+                font-size: 100%;
             }
         }
 
