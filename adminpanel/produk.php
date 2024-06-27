@@ -77,10 +77,110 @@ function generateRandomString($length = 10)
             </div>
         </a>
 
+        <style>
+            /* Default font size for the table */
+            .table {
+                font-size: 100%;
+            }
+
+            /* Media query for smaller screens */
+            @media (max-width: 450px) {
+
+                /* Reduce font size to 70% of the original size */
+                .table {
+                    font-size: 65%;
+                }
+
+                .search-bar button {
+                    padding: 4px 6px;
+                    /* Reduce padding for smaller size */
+                    font-size: 9px;
+                    /* Reduce font size */
+                }
+            }
+
+            /* Default search bar style */
+            .search-bar {
+                display: flex;
+                align-items: center;
+                background-color: #f0f0f0;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                overflow: hidden;
+                max-width: 100%;
+                /* Ensure it takes full width */
+            }
+
+            .search-bar input[type="text"] {
+                flex: 1;
+                /* Take remaining space */
+                padding: 6px 8px;
+                /* Adjust padding as needed */
+                font-size: 14px;
+                border: none;
+                background: none;
+                outline: none;
+            }
+
+            .search-bar button {
+                padding: 6px 8px;
+                /* Adjust padding as needed */
+                font-size: 14px;
+                background-color: #007bff;
+                color: white;
+                border: none;
+                cursor: pointer;
+                transition: background-color 0.3s ease;
+            }
+
+            .search-bar button:hover {
+                background-color: #0056b3;
+            }
+
+            /* Default button style */
+            .smaller-button {
+                padding: 6px 8px;
+                /* Adjust padding as needed */
+                font-size: 14px;
+            }
+
+            /* Media query for smaller screens */
+            @media (max-width: 450px) {
+                .search-bar input[type="text"] {
+                    font-size: 12px;
+                    /* Reduce font size */
+                    padding: 5px;
+                    /* Adjust padding */
+                }
+
+                .search-bar button {
+                    padding: 5px 8px;
+                    /* Adjust padding */
+                    font-size: 12px;
+                    /* Reduce font size */
+                }
+
+                .smaller-button {
+                    padding: 5px 8px;
+                    /* Adjust padding */
+                    font-size: 12px;
+                    /* Reduce font size */
+                }
+            }
+        </style>
+
         <div class="mt-5">
-            <h2>List Produk</h2>
-            <div class="table-responsive mt-5">
-                <table class="table">
+            <div class="d-flex justify-content-between align-items-center">
+                <h2>List Produk</h2>
+                <form action="" method="GET" class="search-form">
+                    <div class="search-bar">
+                        <input type="text" name="search" placeholder="Search...">
+                        <button type="submit"><i class="bi bi-search"></i></button>
+                    </div>
+                </form>
+            </div>
+            <div class="table-responsive mt-3" style="overflow-x: auto;">
+                <table class="table" id="responsive-table">
                     <thead>
                         <tr>
                             <th>Nama</th>
@@ -93,41 +193,50 @@ function generateRandomString($length = 10)
                     </thead>
                     <tbody>
                         <?php
+                        // Handle search query
+                        $search = isset($_GET['search']) ? $_GET['search'] : '';
+                        $sql = "SELECT a.*, b.nama AS nama_kategori 
+                        FROM produk a 
+                        JOIN kategori b ON a.kategori_id=b.id 
+                        WHERE a.nama LIKE '%$search%'
+                        OR b.nama LIKE '%$search%'
+                        ORDER BY a.id DESC";
+
+                        $query = mysqli_query($con, $sql);
+                        $jumlahProduk = mysqli_num_rows($query);
+
                         if ($jumlahProduk == 0) {
                         ?>
                             <tr>
-                                <td colspan="5" class="text-center">Data produk tidak tersedia</td>
+                                <td colspan="6" class="text-center">Data produk tidak tersedia</td>
                             </tr>
                             <?php
                         } else {
-                            $jumlah = 1;
                             while ($data = mysqli_fetch_array($query)) {
                             ?>
                                 <tr>
                                     <td><?php echo $data['nama']; ?></td>
                                     <td><?php echo $data['nama_kategori']; ?></td>
-                                    <td><?php echo $data['harga']; ?></td>
+                                    <td>Rp. <?php echo number_format($data['harga'], 0, '.', ','); ?></td>
                                     <td><?php echo $data['ketersediaan_stok']; ?></td>
                                     <td>
-                                        <a href="edit-produk.php?p=<?php echo $data['id']; ?>" class="btn btn-info"><i class="fas fa-pen" title="Edit"></i>
-                                        </a>
+                                        <a href="edit-produk.php?p=<?php echo $data['id']; ?>" class="btn btn-info smaller-button"><i class="fas fa-pen" title="Edit"></i></a>
                                     </td>
                                     <td>
-                                        <a href="edit-foto-produk.php?p=<?php echo $data['id']; ?>" class="btn btn-warning " style="color: white;"><i class="bi bi-image"></i>
-                                        </a>
+                                        <a href="edit-foto-produk.php?p=<?php echo $data['id']; ?>" class="btn btn-warning smaller-button" style="color: white;"><i class="bi bi-image"></i></a>
                                     </td>
                                 </tr>
                         <?php
-                                $jumlah++;
                             }
                         }
                         ?>
-
                     </tbody>
                 </table>
             </div>
-
         </div>
+
+
+
 
     </div>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
