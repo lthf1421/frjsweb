@@ -356,11 +356,11 @@ function generateRandomString($length = 10)
                                     <?php
                                     if ($data['ketersediaan_stok'] == 'pre-order') {
                                     ?>
-                                        <option value="ready stock">Ready Stock</option>
+                                        <option value="ready stock">ready stock</option>
                                     <?php
                                     } else {
                                     ?>
-                                        <option value="pre-order">Pre-order</option>
+                                        <option value="pre-order">pre-order</option>
                                     <?php
                                     }
                                     ?>
