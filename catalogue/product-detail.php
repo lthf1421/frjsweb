@@ -229,17 +229,6 @@ WHERE produk.id = '$productId';
                 /* Minimum height */
                 height: 100%;
             }
-
-            .video-container iframe {
-                width: 80%;
-                /* Make the iframe responsive */
-                /* Max width for larger screens */
-                height: 100px;
-                /* Auto height based on width */
-                border: none;
-                /* Remove iframe border */
-                border-radius: 8px;
-            }
         }
 
 
@@ -306,59 +295,10 @@ WHERE produk.id = '$productId';
                     endforeach;
                     ?>
                 </div>
+
             </div>
 
             <div class="col-lg-6">
-                <!-- Product details -->
-                <div class="product-details">
-                    <h1 class="display-4"><?php echo $produk['nama']; ?></h1>
-                    <p class="lead" style="font-size: 1.5rem;">Rp. <?php echo number_format($produk['harga'], 0, '.', ','); ?></p>
-                    <p class="lead" style="font-size:larger; background-color:white; color:#39385c; padding-left:8px;"> Panjang x Lebar = <?php echo $produk['panjang'] . ' cm x ' . $produk['lebar'] . ' cm'; ?></p>
-                    <p style="font-style: italic;"><?php echo trim($ketersediaan_stok == 'pre-order' ? 'Pre Order' : 'Ready Stock'); ?></p>
-                    <a href="
-                    https://wa.me/6285280038866?text=Halo%2C%20admin.%0ASaya%20ingin%20memesan%20produk%20<?php echo $produk['nama']; ?>
-                    " class="btn btn-primary" style="width: 200px;" target="_blank">Order Sekarang</a>
-                    <!-- WhatsApp share icon -->
-
-                    <style>
-                        .whatsapp-share-button {
-                            display: inline-flex;
-                            align-items: center;
-                            background-color: transparent;
-                            color: white;
-                            padding: 2px;
-                            padding-right: 6px;
-                            /* Padding inside the button */
-                            border-radius: 5px;
-                            /* Rounded corners */
-                            text-decoration: none;
-                            /* Remove underline */
-                            margin-left: 5px;
-                            /* Margin to the left */
-                            font-size: 1rem;
-                            /* Larger icon size */
-                        }
-
-                        .whatsapp-share-button i {
-                            font-size: 1.4rem;
-                            /* Larger icon size */
-                            margin-left: 6px;
-                            /* Space between text and icon */
-                        }
-
-                        .whatsapp-share-button:hover {
-                            color: white;
-                            text-decoration: none;
-                        }
-                    </style>
-                    <a href="https://api.whatsapp.com/send?text=Lihat%20produk%20<?php echo $produk['nama']; ?>%20ini%20deh,%20mungkin%20tertarik%20www.frjs.id/catalogue/product-detail.php?id=<?= $produk['id']; ?>" target="_blank" class="whatsapp-share-button">
-                        <i class="fa-solid fa-share-nodes"></i>
-                        <i class="bi bi-whatsapp"></i>
-                    </a>
-                </div>
-
-                <h5 class="mt-2">Deskripsi Produk</h5>
-
                 <!-- Awal Coding Embed Video Youtube-->
 
                 <style>
@@ -424,6 +364,19 @@ WHERE produk.id = '$productId';
                         border: none;
                         /* Remove iframe border */
                         border-radius: 8px;
+                    }
+
+                    @media (max-width: 450px) {
+                        .video-container iframe {
+                            width: 100%;
+                            /* Make the iframe responsive */
+                            /* Max width for larger screens */
+                            height: 230px;
+                            /* Auto height based on width */
+                            border: none;
+                            /* Remove iframe border */
+                            border-radius: 8px;
+                        }
                     }
                 </style>
                 </head>
@@ -491,8 +444,57 @@ WHERE produk.id = '$productId';
                     </script>
 
                     <!-- Akhir Coding Embed Video Youtube -->
+                    <!-- Product details -->
+                    <div class="product-details">
+                        <h1 class="display-4"><?php echo $produk['nama']; ?></h1>
+                        <p class="lead" style="font-size: 1.5rem;">Rp. <?php echo number_format($produk['harga'], 0, '.', ','); ?></p>
+                        <p class="lead" style="font-size:larger; background-color:white; color:#39385c; padding-left:8px;"> Panjang x Lebar = <?php echo $produk['panjang'] . ' cm x ' . $produk['lebar'] . ' cm'; ?></p>
+                        <p style="font-style: italic;"><?php echo trim($ketersediaan_stok == 'pre-order' ? 'Pre Order' : 'Ready Stock'); ?></p>
+                        <a href="
+                    https://wa.me/6285280038866?text=Halo%2C%20admin.%0ASaya%20ingin%20memesan%20produk%20<?php echo $produk['nama']; ?>
+                    " class="btn btn-primary" style="width: 200px;" target="_blank">Order Sekarang</a>
+                        <!-- WhatsApp share icon -->
 
-                    <p><?php echo $produk['detail']; ?></p>
+                        <style>
+                            .whatsapp-share-button {
+                                display: inline-flex;
+                                align-items: center;
+                                background-color: transparent;
+                                color: white;
+                                padding: 2px;
+                                padding-right: 6px;
+                                /* Padding inside the button */
+                                border-radius: 5px;
+                                /* Rounded corners */
+                                text-decoration: none;
+                                /* Remove underline */
+                                margin-left: 5px;
+                                /* Margin to the left */
+                                font-size: 1rem;
+                                /* Larger icon size */
+                            }
+
+                            .whatsapp-share-button i {
+                                font-size: 1.4rem;
+                                /* Larger icon size */
+                                margin-left: 6px;
+                                /* Space between text and icon */
+                            }
+
+                            .whatsapp-share-button:hover {
+                                color: white;
+                                text-decoration: none;
+                            }
+                        </style>
+                        <a href="https://api.whatsapp.com/send?text=Lihat%20produk%20<?php echo $produk['nama']; ?>%20ini%20deh,%20mungkin%20tertarik%20www.frjs.id/catalogue/product-detail.php?id=<?= $produk['id']; ?>" target="_blank" class="whatsapp-share-button">
+                            <i class="fa-solid fa-share-nodes"></i>
+                            <i class="bi bi-whatsapp"></i>
+                        </a>
+                    </div>
+
+                    <h5 class="mt-2">Deskripsi Produk</h5>
+
+                    <p style="font-size: 16px;"><?php echo $produk['detail']; ?></p>
 
             </div>
         </div>
