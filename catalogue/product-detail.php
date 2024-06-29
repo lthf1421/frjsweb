@@ -449,7 +449,7 @@ WHERE produk.id = '$productId';
                     <h1 class="display-4"><?php echo $produk['nama']; ?></h1>
                     <p class="lead" style="font-size: 1.5rem;">Rp. <?php echo number_format($produk['harga'], 0, '.', ','); ?></p>
                     <p class="lead" style="font-size:larger; background-color:white; color:#39385c; padding-left:8px;"> Panjang x Lebar = <?php echo $produk['panjang'] . ' cm x ' . $produk['lebar'] . ' cm'; ?></p>
-                    <p style="font-style: italic;"><?php echo trim($ketersediaan_stok == 'pre-order' ? 'Pre Order' : 'Ready Stock'); ?></p>
+                    <p style="font-style: italic; font-size:15px; font-weight:300px; color:#AB57FA;"><?php echo trim($ketersediaan_stok == 'pre-order' ? 'Pre Order' : 'Ready Stock'); ?></p>
                     <a href="
                     https://wa.me/6285280038866?text=Halo%2C%20admin.%0ASaya%20ingin%20memesan%20produk%20<?php echo $produk['nama']; ?>
                     " class="btn btn-primary" style="width: 200px;" target="_blank">Order Sekarang</a>
@@ -486,7 +486,7 @@ WHERE produk.id = '$productId';
                             text-decoration: none;
                         }
                     </style>
-                    <a href="https://api.whatsapp.com/send?text=Lihat%20produk%20<?php echo $produk['nama']; ?>%20ini%20deh,%20mungkin%20tertarik%20www.frjs.id/catalogue/product-detail.php?id=<?= $produk['id']; ?>" target="_blank" class="whatsapp-share-button">
+                    <a href="https://api.whatsapp.com/send?text=Lihat%20produk%20<?php echo $produk['nama']; ?>%20ini%20deh,%20mungkin%20tertarik%20www.scoreboard-frjs.com/catalogue/product-detail.php?id=<?= $produk['id']; ?>" target="_blank" class="whatsapp-share-button">
                         <i class="fa-solid fa-share-nodes"></i>
                         <i class="bi bi-whatsapp"></i>
                     </a>
@@ -494,7 +494,7 @@ WHERE produk.id = '$productId';
 
                 <h5 class="mt-2">Deskripsi Produk</h5>
 
-                    <p style="font-size: 16px;"><?php echo $produk['detail']; ?></p>
+                                        <p style="font-size: 16px; font-weight:300;"><?php echo nl2br($produk['detail']); ?></p>
 
             </div>
         </div>
